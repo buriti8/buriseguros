@@ -1,0 +1,84 @@
+.pointer {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.title-module {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 2px solid $primary;
+    box-shadow: 0 2px 2px 0 $primary;
+    font-size: 15px;
+    font-weight: bold;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: auto;
+    margin-bottom: 0.5em;
+}
+
+.login_img {
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.login-box::before {
+    content: "";
+    background: url("../img/back.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    box-shadow: inset 0px 0px 2000px 2000px rgb(0, 0, 0, 0.5);
+}
+
+.strike-through {
+    background: linear-gradient(
+        to left top,
+        transparent 47.75%,
+        currentColor 49.5%,
+        currentColor 50.5%,
+        transparent 52.25%
+    );
+    padding: 0 0.15em;
+}
+
+.background_color {
+	background-color: #fff !important;
+}
+
+.table-striped_td tbody td:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+    font-weight: bold;
+}
+
+.img_small {
+    width: 65px;
+    height: 65px;
+    background-color: white;
+    border: 1px solid rgb(209, 209, 209);
+    margin: 0 auto;
+}
+
+.img_small img {
+    width: 100%;
+}
+
+//Media queries ...
+@media only screen and (min-width: 0px) and (max-width: 540px) {
+    .button-w-100 a{
+        width: 100%;
+    }
+}

@@ -1,0 +1,1 @@
+{{(($paginator->currentPage() -1 ) * $paginator->perPage())+ $paginator->count() }} al {{ $paginator->total()}}
