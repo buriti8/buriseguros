@@ -5,7 +5,7 @@ return [
         'lists' => 'Listas Desplegables',
         'insurers' => 'Aseguradoras',
         'networks' => 'Redes Sociales',
-        'solutions' => 'Soluciones',
+        'solutions' => 'Seguros',
         'insurances' => 'Seguros',
         'posts' => 'Blog Posts',
         'contacts' => 'Información de Contacto',

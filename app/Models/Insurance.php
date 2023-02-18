@@ -80,6 +80,14 @@ class Insurance extends Model
         return $lists;
     }
 
+    public function similar()
+    {
+        return $this->where('solution_id', $this->solution_id)
+            ->where('id', '!=', $this->id)
+            ->take(4)
+            ->get();
+    }
+
     public function solution()
     {
         return $this->belongsTo(Solution::class, 'solution_id');

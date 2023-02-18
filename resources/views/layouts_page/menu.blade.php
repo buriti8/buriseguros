@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{config('app.name')}} | @yield('title')</title>
+    <title>{{config('app.name')}} @yield('title')</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/logo.png')}}">
     @include('layouts_page.menu_css')
 </head>
@@ -17,24 +17,36 @@
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
             <a href="{{route('page.index')}}" class="logo d-flex align-items-center">
-                <img src="{{ route('contact.image', $contact->id) }}?{{rand(0, 1000)}}" alt="Logo">
+                <img src="{{ route('contact.image', 1) }}?{{rand(0, 1000)}}" alt="Logo">
             </a>
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto" href="#">Inicio</a></li>
-                    <li class="dropdown">
-                        <a href="#values">
-                            <span>Soluciones</span>&nbsp;
-                            <i class="fas fa-chevron-down"></i>
-                        </a>
+                    <li><a class="nav-link scrollto" href="{{route('page.index')}}">Inicio</a></li>
+                    <li class="dropdown"><a href="#"><span>Seguros</span> <i class="fas fa-chevron-down"></i></a>
                         <ul>
-                            <li><a href="#">Personales</a></li>
-                            <li><a href="#">Empresariales</a></li>
+                            @foreach ($solutions as $solution)
+                            <li class="dropdown">
+                                <a href="{{ route('solution.page', $solution->lower_name) }}">
+                                    <span>{{ $solution->name ?? '' }}</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                                <ul>
+                                    @foreach ($solution->insurances as $insurance)
+                                    <li>
+                                        <a href="{{ route('insurance.page', $insurance->slug) }}">
+                                            {{ $insurance->name }}
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            @endforeach
                         </ul>
                     </li>
-                    <li><a href="#recent-blog-posts">Blog</a></li>
+                    <li><a href="{{ route('blog.index') }}">Blog</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+                    <li><a class="nav-link" href="{{route('insurer.page')}}">Pagos</a></li>
                 </ul>
                 <i class="fas fa-bars mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -51,7 +63,7 @@
                 <div class="row gy-4">
                     <div class="col-lg-5 col-md-12 footer-info">
                         <a href="#" class="logo d-flex align-items-center">
-                            <img src="{{ route('contact.image', $contact->id) }}?{{rand(0, 1000)}}" alt="">
+                            <img src="{{ route('contact.image', 1) }}?{{rand(0, 1000)}}" alt="">
                         </a>
                     </div>
 
@@ -59,13 +71,13 @@
                         <h4>Enlaces útiles</h4>
                         <ul>
                             <li><i class="fas fa-chevron-right"></i> <a href="#">Inicio</a></li>
-                            <li><i class="fas fa-chevron-right"></i> <a href="#">Soluciones</a></li>
+                            <li><i class="fas fa-chevron-right"></i> <a href="#">Seguros</a></li>
                             <li><i class="fas fa-chevron-right"></i> <a href="#">Blog</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-2 col-6 footer-links">
-                        <h4>Soluciones</h4>
+                        <h4>Seguros</h4>
                         <ul>
                             <li><i class="fas fa-chevron-right"></i> <a href="#">Empresariales</a></li>
                             <li><i class="fas fa-chevron-right"></i> <a href="#">Personales</a></li>
@@ -119,7 +131,7 @@
         <script async src='https://d2mpatx37cqexb.cloudfront.net/delightchat-whatsapp-widget/embeds/embed.min.js'>
         </script>
         <script>
-            var wa_btnSetting = {"btnColor":"#16BE45","ctaText":"","cornerRadius":40,"marginBottom":20,"marginLeft":20,"marginRight":20,"btnPosition":"right","whatsAppNumber":"573128936026","welcomeMessage":"Hello","zIndex":999999,"btnColorScheme":"light"};
+            var wa_btnSetting = {"btnColor":"#16BE45","ctaText":"","cornerRadius":40,"marginBottom":20,"marginLeft":20,"marginRight":20,"btnPosition":"right","whatsAppNumber":"573176351140","welcomeMessage":"Hola, Buriseguros.","zIndex":999999,"btnColorScheme":"light"};
             window.onload = () => {
                 _waEmbed(wa_btnSetting);
             };

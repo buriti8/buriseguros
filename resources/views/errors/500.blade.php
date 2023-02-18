@@ -1,7 +1,7 @@
 @extends('errors::illustrated-layout')
 
 @section('code', '500')
-@section('title', __('Error del Servidor'))
+@section('title', '| ' . __('Error del Servidor'))
 
 @section('image')
 <div style="background-image: url({{ asset('/svg/500.svg') }});"

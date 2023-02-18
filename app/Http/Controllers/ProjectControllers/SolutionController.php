@@ -169,4 +169,17 @@ class SolutionController extends Controller
             abort(404);
         }
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function page(Solution $solution)
+    {
+        return view('solutions.page.detail', [
+            'solution' => $solution,
+        ]);
+    }
 }

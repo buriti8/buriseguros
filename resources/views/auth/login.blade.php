@@ -1,14 +1,16 @@
 @extends('layouts.aig')
 
-@section('title', __('auth.login'))
+@section('title', '| ' . __('auth.login'))
 
 @section('content')
 <div class="login-box">
     <div class="card">
         <div class="card-body login-card-body">
-            <span>
-                <h1 class="login-box-msg text-uppercase"><strong>Buriseguros</strong></h1>
-            </span>
+            <div class="mb-3 text-center">
+                <a href="{{route('page.index')}}">
+                    <img src="{{ route('contact.image', 1) }}" alt="Logo">
+                </a>
+            </div>
             <form role="form" method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -54,11 +56,6 @@
                     </div>
                 </div>
             </form>
-            <div class="text-center mt-4">
-                <a style="color: #666666 !important;" class="" href="{{ url('register') }}">
-                    {{Lang::get('base_lang.register')}}
-                </a>
-            </div>
         </div>
     </div>
 </div>

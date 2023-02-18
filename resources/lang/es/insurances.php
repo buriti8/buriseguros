@@ -13,10 +13,10 @@ return [
     'content' => 'Contenido',
     'image' => 'Imagen',
     'icon' => 'Ícono',
-    'solution_id' => 'Solución',
+    'solution_id' => 'Seguro',
 
     //Tags
     'new_insurance' => 'Nuevo Seguro',
     'view_insurances' => 'Ver Seguros',
-    'select_solution' => 'Seleccionar solución',
+    'select_solution' => 'Seleccionar seguro',
 ];

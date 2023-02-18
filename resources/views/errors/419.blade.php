@@ -1,7 +1,7 @@
 @extends('errors::illustrated-layout')
 
 @section('code', '419')
-@section('title', __('Página caducada'))
+@section('title', '| ' . __('Página caducada'))
 
 @section('image')
 <div style="background-image: url({{ asset('/svg/403.svg') }});"

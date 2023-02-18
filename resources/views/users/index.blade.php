@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', __('base_lang.users'))
+@section('title', '| ' . __('base_lang.users'))
 
 @section('title_page')
 <i class="fa fa-users"></i>&nbsp;@lang('base_lang.users')

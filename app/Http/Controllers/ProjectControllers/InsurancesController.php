@@ -67,7 +67,7 @@ class InsurancesController extends Controller
             $insurances = new Insurance($request->validated());
 
             if ($insurances->save()) {
-                $insurances->slug = Str::slug($insurances->name) . '-' . $insurances->id;
+                $insurances->slug = Str::slug($insurances->name);
                 $insurances->save();
 
                 Session::flash('success', __('insurances.created', ['name' => $insurances->name]));
@@ -123,7 +123,7 @@ class InsurancesController extends Controller
             DB::beginTransaction();
 
             $insurances = Insurance::findOrFail($id);
-            $insurances->slug = Str::slug($insurances->name) . '-' . $insurances->id;
+            $insurances->slug = Str::slug($insurances->name);
 
             if ($insurances->update($request->validated())) {
                 Session::flash('success', __('insurances.updated', ['name' => $insurances->name]));
@@ -168,5 +168,18 @@ class InsurancesController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function page(Insurance $insurance)
+    {
+        return view('insurances.page.detail', [
+            'insurance' => $insurance,
+        ]);
     }
 }

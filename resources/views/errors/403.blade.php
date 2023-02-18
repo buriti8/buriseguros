@@ -1,7 +1,7 @@
 @extends('errors::illustrated-layout')
 
 @section('code', '403')
-@section('title', __('Prohibido'))
+@section('title', '| ' . __('Prohibido'))
 
 @section('image')
 <div style="background-image: url({{ asset('/svg/403.svg') }});"

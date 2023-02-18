@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', __('base_lang.networks') . ' - ' . __('base_lang.new'))
+@section('title', '| ' . __('base_lang.networks') . ' - ' . __('base_lang.new'))
 
 @section('title_page')
 <i class="fas fa-wifi"></i>&nbsp;@lang('base_lang.networks')&nbsp;

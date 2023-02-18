@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', __('base_lang.roles'))
+@section('title', '| ' . __('base_lang.roles'))
 
 @section('title_page')
 <i class="fas fa-tags"></i>&nbsp;@lang('base_lang.roles')

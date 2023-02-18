@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\CustomAttributesTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Solution extends Model
 {
@@ -60,5 +61,15 @@ class Solution extends Model
             }
         }
         return $builder->orderBy('name', 'ASC');
+    }
+
+    public function insurances()
+    {
+        return $this->hasMany(Insurance::class, 'solution_id');
+    }
+
+    public function getLowerNameAttribute()
+    {
+        return mb_strtolower($this->name);
     }
 }

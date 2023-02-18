@@ -10,7 +10,7 @@ return [
     'insurers' => 'Aseguradoras',
     'lists' => 'Listas Desplegables',
     'networks' => 'Redes Sociales',
-    'solutions' => 'Soluciones',
+    'solutions' => 'Seguros',
     'posts' => 'Blog',
     'insurances' => 'Seguros',
     'contact' => 'Contacto',

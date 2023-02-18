@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', __('base_lang.insurances') . ' - ' . __('base_lang.edit'))
+@section('title', '| ' . __('base_lang.insurances') . ' - ' . __('base_lang.edit'))
 
 @section('title_page')
 <i class="fas fa-shield-alt"></i>&nbsp;@lang('base_lang.insurances')&nbsp;

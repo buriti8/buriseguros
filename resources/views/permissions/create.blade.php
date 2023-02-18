@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', __('users.permissions'))
+@section('title', '| ' . __('users.permissions'))
 
 @section('title_page')
 <i class="fas fa-key"></i>&nbsp;@lang('users.permissions')

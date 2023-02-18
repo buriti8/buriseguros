@@ -49,7 +49,8 @@ h6 {
   # Sections
   --------------------------------------------------------------*/
 section {
-    padding: 60px 0;
+    padding: 15px 0 60px 0;
+    margin-top: 85px;
     overflow: hidden;
 }
 
@@ -87,16 +88,16 @@ section {
   # Breadcrumbs
   --------------------------------------------------------------*/
 .breadcrumbs {
-    padding: 15px 0;
-    background: #012970;
-    min-height: 40px;
+    padding: 0px 0;
+    background: #009CA6;
+    min-height: 0px;
     margin-top: 82px;
     color: #fff;
 }
 
 @media (max-width: 992px) {
     .breadcrumbs {
-        margin-top: 57px;
+        margin-top: 85px;
     }
 }
 
@@ -635,7 +636,7 @@ section {
 /*--------------------------------------------------------------
   # Features
   --------------------------------------------------------------*/
-  .features .feature-box {
+.features .feature-box {
     padding: 24px 20px;
     box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
     transition: 0.3s;
@@ -650,7 +651,6 @@ section {
 }
 
 .features .feature-box i {
-    line-height: 0;
     background: #ecf3ff;
     padding: 4px;
     margin-right: 10px;
@@ -981,10 +981,6 @@ section {
 /*--------------------------------------------------------------
   # Blog
   --------------------------------------------------------------*/
-.blog {
-    padding: 40px 0 20px 0;
-}
-
 .blog .entry {
     padding: 30px;
     margin-bottom: 60px;
@@ -1002,14 +998,6 @@ section {
     font-weight: bold;
     padding: 0;
     margin: 0 0 20px 0;
-}
-
-.blog .entry .entry-title a {
-    color: #012970;
-    transition: 0.3s;
-}
-
-.blog .entry .entry-title a:hover {
     color: #00a09a;
 }
 
@@ -1339,7 +1327,6 @@ section {
 
 .blog .sidebar {
     padding: 30px;
-    margin: 0 0 60px 20px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
@@ -1770,4 +1757,74 @@ section {
 .swiper-pagination-bullet {
     display: inline-block;
     border-radius: 50%;
+}
+
+/*--------------------------------------------------------------
+# Services
+--------------------------------------------------------------*/
+.services .service-box {
+    box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
+    height: 100%;
+    padding: 60px 30px;
+    text-align: center;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.services .service-box .icon {
+    font-size: 36px;
+    padding: 40px 20px;
+    border-radius: 4px;
+    position: relative;
+    margin-bottom: 25px;
+    display: inline-block;
+    line-height: 0;
+    transition: 0.3s;
+}
+
+.services .service-box h3 {
+    color: #444444;
+    font-weight: 700;
+}
+
+.services .service-box .read-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 8px 20px;
+}
+
+.services .service-box .read-more i {
+    line-height: 0;
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+.services .service-box {
+    border-bottom: 3px solid #009CA6;
+}
+
+.services .service-box .icon {
+    color: #009CA6;
+    background: #dbf3fe;
+}
+
+.services .service-box .read-more {
+    color: #009CA6;
+}
+
+.services .service-box:hover {
+    background: #009CA6;
+}
+
+.services .service-box:hover h3,
+.services .service-box:hover p,
+.services .service-box:hover .read-more {
+    color: #fff;
+}
+
+.services .service-box:hover .icon {
+    background: #fff;
 }

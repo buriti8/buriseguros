@@ -1,7 +1,7 @@
 @extends('errors::illustrated-layout')
 
 @section('code', '404')
-@section('title', __('Página no encontrada'))
+@section('title', '| ' . __('Página no encontrada'))
 
 @section('image')
 <div style="background-image: url({{ asset('/svg/404.svg') }});"

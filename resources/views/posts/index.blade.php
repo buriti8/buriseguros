@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', __('base_lang.posts'))
+@section('title', '| ' . __('base_lang.posts'))
 
 @section('title_page')
 <i class="fas fa-newspaper"></i>&nbsp;@lang('base_lang.posts')

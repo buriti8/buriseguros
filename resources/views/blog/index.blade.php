@@ -1,138 +1,243 @@
 @extends('layouts_page.menu')
 
-@section('title', __('base_lang.posts'))
+@section('title', '| ' . __('base_lang.posts'))
 
 @section('content_page')
 
-<section class="page-banner-section img-bg" style=" background-image: url('{{asset('img/common-bg.svg')}}');">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="banner-content">
-                    {{-- <h2 class="text-white">Single Blog</h2> --}}
-                    <div class="page-breadcrumb">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb" style="margin-bottom: 0px !important">
-                                <li class="breadcrumb-item" aria-current="page">
-                                    <a href="javascript:void(0)">@lang('base_lang.posts')</a>
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+        <header class="section-header">
+            <p>Blog</p>
+        </header>
 
-<section class="blog-section pt-50">
-    <div class="container">
         <div class="row">
-            <div class="col-xl-8 col-lg-7">
-                <div class="left-side-wrapper">
-                    <div class="row">
-                        @foreach ($posts as $post)
-                        <div class="col-md-6 col-lg-12 col-xl-6">
-                            <div class="single-blog mb-40 wow fadeInUp" data-wow-delay=".2s"
-                                style="visibility: visible; animation-name: fadeInUp; -webkit-animation-duration: 2s;-moz-animation-duration: 2s;animation-duration: 2s;">
-                                <div class="blog-img">
-                                    <a href="{{ route('blog.show', $post->slug) }}">
-                                        <img src="{{ route('post.image', $post->id) }}?{{rand(0, 1000)}}" alt="">
-                                    </a>
-                                    <span class="date-meta">{{getCurrentDate($post->created_at)}}</span>
-                                </div>
-                                <div class="blog-content">
-                                    <h4><a href="{{ route('blog.show', $post->slug) }}">{{$post->title}}</a></h4>
-                                    <p>{{$post->description}}</p>
-                                    <a href="{{ route('blog.show', $post->slug) }}" class="read-more-btn">
-                                        Leer más <i class="fas fa-long-arrow-alt-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                    <div class="wow fadeInUp" data-wow-delay=".3s"
-                        style="visibility: visible; animation-name: fadeInUp; -webkit-animation-duration: 3s;-moz-animation-duration: 3s;animation-duration: 3s;">
-                        {{$posts->links()}}
+            <div class="col-lg-8 entries">
+                <article class="entry">
+                    <div class="entry-img">
+                        <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
                     </div>
 
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="sidebar-wrapper">
-                    <div class="sidebar-box search-form-box mb-30">
-                        <form action="#" class="search-form">
-                            <input type="text" placeholder="Buscar">
-                            <button type="submit"><i class="lni lni-search-alt"></i></button>
-                        </form>
-                    </div>
-                    <div class="sidebar-box recent-blog-box mb-30">
-                        <h4>Noticias Recientes</h4>
-                        <div class="recent-blog-items">
-                            @foreach ($recent_posts as $recent_post)
-                            <div class="recent-blog mb-30">
-                                <div class="recent-blog-img">
-                                    <img src="{{ route('post.image', $recent_post->id) }}?{{rand(0, 1000)}}" alt="">
-                                </div>
-                                <div class="recent-blog-content">
-                                    <h5>
-                                        <a href="{{ route('blog.show', $recent_post->slug) }}">
-                                            {{$recent_post->title}}
-                                        </a>
-                                    </h5>
-                                    <span class="date">{{getCurrentDate($recent_post->created_at)}}</span>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="sidebar-box catagories-box mb-30">
-                        <h4>Categorías</h4>
+                    <h2 class="entry-title">
+                        <a href="blog-single.html">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam
+                            quia</a>
+                    </h2>
+
+                    <div class="entry-meta">
                         <ul>
-                            @foreach ($categories as $category)
-                            <li>
-                                <a href="{{ url("/blog?q[category_id][]=$category->id") }}">
-                                    <span>{{$category->option}}</span>
-                                    <span class="ms-2">{{$category->post_counter}}</span>
-                                </a>
-                            </li>
-                            @endforeach
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
+                                    href="blog-single.html">John Doe</a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
+                                    href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a
+                                    href="blog-single.html">12 Comments</a></li>
                         </ul>
                     </div>
-                    <div class="sidebar-box">
-                        <h4>¡Síguenos!</h4>
-                        <div class="footer-social-links">
-                            <ul class="d-flex justify-content-start">
-                                @foreach ($networks as $network)
-                                <li>
-                                    <a href="{{$network->link}}">
-                                        <i class="{{$network->icon}}"></i>
-                                    </a>
-                                </li>
-                                @endforeach
-                            </ul>
+
+                    <div class="entry-content">
+                        <p>
+                            Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium.
+                            Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.
+                            Et eveniet enim. Qui velit est ea dolorem doloremque deleniti aperiam unde soluta. Est cum
+                            et quod quos aut ut et sit sunt. Voluptate porro consequatur assumenda perferendis dolore.
+                        </p>
+                        <div class="read-more">
+                            <a href="blog-single.html">Read More</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section class="client-logo-section pt-50 pb-50">
-    <div class="container">
-        <div class="client-logo-wrapper">
-            <div class="client-logo-carousel d-flex align-items-center justify-content-between  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
-                id="tns1" style="transform: translate3d(-76.1905%, 0px, 0px);">
-                @foreach ($insurers as $insurer)
-                <div class="client-logo">
-                    <a href="{{ $insurer->link }}" target="_blank">
-                        <img src="{{ route('insurer.image', $insurer->id) }}?{{rand(0, 1000)}}" alt="">
-                    </a>
+                </article><!-- End blog entry -->
+
+                <article class="entry">
+                    <div class="entry-img">
+                        <img src="assets/img/blog/blog-2.jpg" alt="" class="img-fluid">
+                    </div>
+
+                    <h2 class="entry-title">
+                        <a href="blog-single.html">Nisi magni odit consequatur autem nulla dolorem</a>
+                    </h2>
+
+                    <div class="entry-meta">
+                        <ul>
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
+                                    href="blog-single.html">John Doe</a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
+                                    href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a
+                                    href="blog-single.html">12 Comments</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="entry-content">
+                        <p>
+                            Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum
+                            et. Quo libero rerum voluptatem pariatur nam.
+                            Ad impedit qui officiis est in non aliquid veniam laborum. Id ipsum qui aut. Sit aliquam et
+                            quia molestias laboriosam. Tempora nam odit omnis eum corrupti qui aliquid excepturi
+                            molestiae. Facilis et sint quos sed voluptas. Maxime sed tempore enim omnis non alias odio
+                            quos distinctio.
+                        </p>
+                        <div class="read-more">
+                            <a href="blog-single.html">Read More</a>
+                        </div>
+                    </div>
+
+                </article><!-- End blog entry -->
+
+                <article class="entry">
+                    <div class="entry-img">
+                        <img src="assets/img/blog/blog-3.jpg" alt="" class="img-fluid">
+                    </div>
+
+                    <h2 class="entry-title">
+                        <a href="blog-single.html">Possimus soluta ut id suscipit ea ut. In quo quia et soluta libero
+                            sit sint.</a>
+                    </h2>
+
+                    <div class="entry-meta">
+                        <ul>
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
+                                    href="blog-single.html">John Doe</a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
+                                    href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a
+                                    href="blog-single.html">12 Comments</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="entry-content">
+                        <p>
+                            Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem
+                            labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.
+                            Doloremque est saepe laborum aut. Ipsa cupiditate ex harum at recusandae nesciunt. Ut
+                            dolores velit.
+                        </p>
+                        <div class="read-more">
+                            <a href="blog-single.html">Read More</a>
+                        </div>
+                    </div>
+
+                </article><!-- End blog entry -->
+
+                <article class="entry">
+                    <div class="entry-img">
+                        <img src="assets/img/blog/blog-4.jpg" alt="" class="img-fluid">
+                    </div>
+
+                    <h2 class="entry-title">
+                        <a href="blog-single.html">Non rem rerum nam cum quo minus. Dolor distinctio deleniti explicabo
+                            eius exercitationem.</a>
+                    </h2>
+
+                    <div class="entry-meta">
+                        <ul>
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
+                                    href="blog-single.html">John Doe</a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
+                                    href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a
+                                    href="blog-single.html">12 Comments</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="entry-content">
+                        <p>
+                            Aspernatur rerum perferendis et sint. Voluptates cupiditate voluptas atque quae. Rem
+                            veritatis rerum enim et autem. Saepe atque cum eligendi eaque iste omnis a qui.
+                            Quia sed sunt. Ea asperiores expedita et et delectus voluptates rerum. Id saepe ut itaque
+                            quod qui voluptas nobis porro rerum. Quam quia nesciunt qui aut est non omnis. Inventore
+                            occaecati et quaerat magni itaque nam voluptas. Voluptatem ducimus sint id earum ut nesciunt
+                            sed corrupti nemo.
+                        </p>
+                        <div class="read-more">
+                            <a href="blog-single.html">Read More</a>
+                        </div>
+                    </div>
+                </article><!-- End blog entry -->
+
+                <div class="blog-pagination">
+                    <ul class="justify-content-center">
+                        <li><a href="#">1</a></li>
+                        <li class="active"><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                    </ul>
                 </div>
-                @endforeach
-            </div>
+
+            </div><!-- End blog entries list -->
+
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <h3 class="sidebar-title">Search</h3>
+                    <div class="sidebar-item search-form">
+                        <form action="">
+                            <input type="text">
+                            <button type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                    </div><!-- End sidebar search formn-->
+
+                    <h3 class="sidebar-title">Categories</h3>
+                    <div class="sidebar-item categories">
+                        <ul>
+                            <li><a href="#">General <span>(25)</span></a></li>
+                            <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                            <li><a href="#">Travel <span>(5)</span></a></li>
+                            <li><a href="#">Design <span>(22)</span></a></li>
+                            <li><a href="#">Creative <span>(8)</span></a></li>
+                            <li><a href="#">Educaion <span>(14)</span></a></li>
+                        </ul>
+                    </div><!-- End sidebar categories-->
+
+                    <h3 class="sidebar-title">Recent Posts</h3>
+                    <div class="sidebar-item recent-posts">
+                        <div class="post-item clearfix">
+                            <img src="assets/img/blog/blog-recent-1.jpg" alt="">
+                            <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                        <div class="post-item clearfix">
+                            <img src="assets/img/blog/blog-recent-2.jpg" alt="">
+                            <h4><a href="blog-single.html">Quidem autem et impedit</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                        <div class="post-item clearfix">
+                            <img src="assets/img/blog/blog-recent-3.jpg" alt="">
+                            <h4><a href="blog-single.html">Id quia et et ut maxime similique occaecati ut</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                        <div class="post-item clearfix">
+                            <img src="assets/img/blog/blog-recent-4.jpg" alt="">
+                            <h4><a href="blog-single.html">Laborum corporis quo dara net para</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                        <div class="post-item clearfix">
+                            <img src="assets/img/blog/blog-recent-5.jpg" alt="">
+                            <h4><a href="blog-single.html">Et dolores corrupti quae illo quod dolor</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                    </div><!-- End sidebar recent posts-->
+
+                    <h3 class="sidebar-title">Tags</h3>
+                    <div class="sidebar-item tags">
+                        <ul>
+                            <li><a href="#">App</a></li>
+                            <li><a href="#">IT</a></li>
+                            <li><a href="#">Business</a></li>
+                            <li><a href="#">Mac</a></li>
+                            <li><a href="#">Design</a></li>
+                            <li><a href="#">Office</a></li>
+                            <li><a href="#">Creative</a></li>
+                            <li><a href="#">Studio</a></li>
+                            <li><a href="#">Smart</a></li>
+                            <li><a href="#">Tips</a></li>
+                            <li><a href="#">Marketing</a></li>
+                        </ul>
+                    </div><!-- End sidebar tags-->
+                </div><!-- End sidebar -->
+            </div><!-- End blog sidebar -->
         </div>
     </div>
 </section>

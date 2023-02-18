@@ -1,6 +1,6 @@
 @extends('layouts.aig')
 
-@section('title', __('users.reset_password'))
+@section('title', '| ' . __('users.reset_password'))
 
 @section('content')
 <div class="login-box">

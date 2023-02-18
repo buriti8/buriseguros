@@ -1,19 +1,45 @@
 @extends('layouts_page.menu')
 
-@section('title', __('base_lang.home'))
-
 @section('content_page')
 
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="hero d-flex align-items-center">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 d-flex flex-column justify-content-center">
+            <div class="col-lg-5 d-flex flex-column justify-content-center">
                 <h1 data-aos="fade-up">{{$contact->name}}</h1>
                 <h2 data-aos="fade-up" data-aos-delay="400">{{$contact->description}}</h2>
             </div>
-            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                <img src="{{asset('img/hero-img.png')}}" class="img-fluid" alt="">
+            <div class="col-lg-7 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="http://localhost/test/php/buriseguros/public/insurances/7/image" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="http://localhost/test/php/buriseguros/public/insurances/4/image" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="http://localhost/test/php/buriseguros/public/insurances/6/image" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -46,14 +72,16 @@
         <div class="container" data-aos="fade-up">
 
             <header class="section-header">
-                <p>¿Qué solución deseas?</p>
+                <p>¿Qué tipo de seguro deseas?</p>
             </header>
 
             <div class="row justify-content-center">
                 @foreach ($solutions as $solution)
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="box">
-                        <img src="{{ route('solution.image', $solution->id) }}" class="img-fluid" alt="">
+                        <a href="{{ route('solution.page', $solution->lower_name) }}">
+                            <img src="{{ route('solution.image', $solution->id) }}" class="img-fluid" alt="">
+                        </a>
                         <h3>{{ $solution->name }}</h3>
                         <p>{{ $solution->description }}</p>
                     </div>
@@ -72,7 +100,7 @@
 
             <!-- Feature Icons -->
             <div class="row feature-icons" data-aos="fade-up">
-                <h3 class="pb-2">Algunas de nuestras soluciones</h3>
+                <h3 class="pb-2">Algunos de nuestros seguros</h3>
 
                 <div class="row">
 

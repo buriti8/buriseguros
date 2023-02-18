@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', __('base_lang.contacts') . ' - ' . __('base_lang.detail'))
+@section('title', '| ' . __('base_lang.contacts') . ' - ' . __('base_lang.detail'))
 
 @section('title_page')
 <i class="fas fa-info"></i>&nbsp;@lang('base_lang.contacts')&nbsp;
@@ -65,7 +65,7 @@
                                 <tr>
                                     <td><b>@lang('contacts.image')</b></td>
                                     <td class="background_color" colspan="3">
-                                        <img src="{{ route('contact.image', $contact->id) }}?{{rand(0, 1000)}}" alt=""
+                                        <img src="{{ route('contact.image', 1) }}?{{rand(0, 1000)}}" alt=""
                                             width="300" height="64">
                                     </td>
                                 </tr>

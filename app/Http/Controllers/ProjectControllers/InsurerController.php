@@ -169,4 +169,19 @@ class InsurerController extends Controller
             abort(404);
         }
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function page()
+    {
+        $insurers = Insurer::status()->get();
+
+        return view('insurers.page.detail', [
+            'insurers' => $insurers,
+        ]);
+    }
 }

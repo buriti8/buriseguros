@@ -103,6 +103,10 @@ Route::get('/inicio', 'PageController@index')->name('page.index');
 Route::get('/blog', 'BlogController@index')->name('blog.index');
 Route::get("/blog/{post:slug}", "BlogController@show")->name('blog.show');
 
+Route::get('/pagos', 'ProjectControllers\InsurerController@page')->name('insurer.page');
+Route::get("/{insurance:slug}", "ProjectControllers\InsurancesController@page")->name('insurance.page');
+Route::get('/seguros/{solution:name}', 'ProjectControllers\SolutionController@page')->name('solution.page');
+
 // Img Routes...
 Route::get('/contacts/{contact}/image', 'ProjectControllers\ContactController@getImage')->name('contact.image');
 Route::get('/insurers/{insurer}/image', 'ProjectControllers\InsurerController@getImage')->name('insurer.image');
