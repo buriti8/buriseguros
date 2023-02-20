@@ -11,6 +11,9 @@ class Solution extends Model
 {
     use CustomAttributesTrait;
 
+    const PERSONAL = 1;
+    const BUSINESS = 2;
+
     protected $table = 'solutions';
     protected $perPage = 20;
 
@@ -36,7 +39,7 @@ class Solution extends Model
      */
     public function scopeStatus(Builder $builder)
     {
-        $builder->where('status', 1)->orderBy('name', 'ASC');
+        $builder->where('status', 1);
     }
 
     /**
@@ -71,5 +74,10 @@ class Solution extends Model
     public function getLowerNameAttribute()
     {
         return mb_strtolower($this->name);
+    }
+
+    public function insurance_types($id)
+    {
+        return $this->insurances()->where('solution_id', $id)->get();
     }
 }

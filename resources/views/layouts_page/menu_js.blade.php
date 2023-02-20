@@ -10,7 +10,7 @@
 <script src="{{ url(mix('js/main.js')) }}"></script>
 <script src="{{ url(mix('js/contact-form.js')) }}"></script>
 
-<script src="https://lab.suraenlinea.com/widgets/v2/soat/soat.min.js"></script>
+{{-- <script src="https://lab.suraenlinea.com/widgets/v2/soat/soat.min.js"></script>
 <script>
     function initSuraWidget() {
         SuraWidgetSoat.mount(
@@ -26,4 +26,4 @@
         );
     }
     document.addEventListener("DOMContentLoaded", initSuraWidget, true);
-</script>
+</script> --}}

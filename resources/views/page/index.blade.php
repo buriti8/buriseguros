@@ -3,52 +3,185 @@
 @section('content_page')
 
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="hero d-flex align-items-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 d-flex flex-column justify-content-center">
-                <h1 data-aos="fade-up">{{$contact->name}}</h1>
-                <h2 data-aos="fade-up" data-aos-delay="400">{{$contact->description}}</h2>
-            </div>
-            <div class="col-lg-7 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
+<section id="hero" class="hero carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="row justify-content-center gy-6">
+                    <div class="col-lg-5 col-md-8">
+                        <img src="http://localhost/test/php/buriseguros/public/insurances/2/image" alt=""
+                            class="img-fluid img" />
                     </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="http://localhost/test/php/buriseguros/public/insurances/7/image" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="http://localhost/test/php/buriseguros/public/insurances/4/image" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="http://localhost/test/php/buriseguros/public/insurances/6/image" class="d-block w-100" alt="...">
-                        </div>
+
+                    <div class="col-lg-9 text-center">
+                        {{-- <h2>Welcome to HeroBiz</h2>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua.
+                            Ut enim ad minim veniam, quis nostrud
+                            exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat.
+                        </p> --}}
+                        <a href="#featured-services" class="btn-get-started scrollto">
+                            Saber más
+                        </a>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    </button>
                 </div>
             </div>
         </div>
+        <!-- End Carousel Item -->
+
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row justify-content-center gy-6">
+                    <div class="col-lg-5 col-md-8">
+                        <img src="{{asset('img/hero-carousel-2.svg')}}" alt="" class="img-fluid img" />
+                    </div>
+
+                    <div class="col-lg-9 text-center">
+                        <h2>At vero eos et accusamus</h2>
+                        <p>
+                            Nam libero tempore, cum soluta nobis est
+                            eligendi optio cumque nihil impedit quo
+                            minus id quod maxime placeat facere
+                            possimus, omnis voluptas assumenda est,
+                            omnis dolor repellendus. Temporibus autem
+                            quibusdam et aut officiis debitis aut.
+                        </p>
+                        <a href="#featured-services" class="btn-get-started scrollto">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Carousel Item -->
     </div>
-</section><!-- End Hero -->
+
+    <a class="carousel-control-prev" href="#hero" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon fas fa-chevron-left" aria-hidden="true"></span>
+    </a>
+
+    <a class="carousel-control-next" href="#hero" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon fas fa-chevron-right" aria-hidden="true"></span>
+    </a>
+
+    <ol class="carousel-indicators"></ol>
+</section>
+<!-- End Hero Section -->
 
 <main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
+            <div class="section-header">
+                <h2>Acerca de nosotros</h2>
+                <p>
+                    {{$contact->description ?? ''}}
+                </p>
+            </div>
+
+            <div class="row g-4 g-lg-5" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-lg-5">
+                    <div class="about-img">
+                        <img src="{{asset('img/familia.jpeg')}}" class="img-fluid" alt="" />
+                    </div>
+                </div>
+
+                <div class="col-lg-7 pt-0">
+                    <h3 class="pt-0 pt-lg-5">
+                        Nuestras soluciones
+                    </h3>
+
+                    <!-- Tabs -->
+                    <ul class="nav nav-pills mb-3">
+                        @foreach ($solutions as $key => $solution)
+                        <li>
+                            <a class="nav-link {{ $loop->first ? 'active' : '' }} set_solution" data-bs-toggle="pill"
+                                href="#tab{{$key}}" data-solution="{{$key}}">
+                                {{$solution->name ?? ''}}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                    <!-- End Tabs -->
+
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        @foreach ($solutions as $key => $solution)
+                        <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="tab{{$key}}">
+                            <p class="fst-italic">
+                                {{$solution->description ?? ''}}
+                            </p>
+
+                            @foreach ($solution->insurance_types($key+1) as $type)
+                            <div class="d-flex align-items-center mt-4">
+                                <i class="fas fa-check"></i>
+                                <h4>
+                                    {{$type->name ?? ''}}
+                                </h4>
+                            </div>
+                            @endforeach
+                        </div>
+                        @endforeach
+                    </div>
+                    <!-- End Tab Content -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End About Section -->
+
+    <!-- ======= Features Section ======= -->
+    @foreach ($solutions as $key => $solution)
+    <section id="features_{{$key}}" class="features {{ $loop->first ? 'd-block' : 'd-none' }}">
+        <div class="container" data-aos="fade-up">
+            <ul class="nav nav-tabs row gy-4 d-flex justify-content-center">
+                @foreach ($solution->insurance_types($key+1) as $keyType => $type)
+                <li class="nav-item col-6 col-md-4 col-lg-2">
+                    <a class="nav-link {{ $loop->first ? 'show active' : '' }}" data-bs-toggle="tab"
+                        data-bs-target="#tab-{{$keyType}}-{{$key}}">
+                        <i class="{{$type->icon}} color-primary"></i>
+                        <h4>{{$type->name ?? ''}}</h4>
+                    </a>
+                </li>
+                @endforeach
+            </ul>
+
+            <div class="tab-content">
+                @foreach ($solution->insurance_types($key+1) as $keyType => $type)
+                <div class="tab-pane {{ $loop->first ? 'show active' : '' }}" id="tab-{{$keyType}}-{{$key}}">
+                    <div class="row gy-4">
+                        <div class="col-lg-8 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+                            <h3>{{$type->name ?? ''}}</h3>
+                            <div>
+                                {!! $type->content ?? '' !!}
+                            </div>
+                            <div class="recent-blog-posts">
+                                <div class="post-box">
+                                    <a href="blog-details.html" class="readmore stretched-link">
+                                        <span>Saber más</span>
+                                        <i class="fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 order-1 order-lg-2 text-center" data-aos="fade-up" data-aos-delay="200">
+                            <img src="{{ route('insurance.image', $type->id) }}" alt="{{$type->name ?? ''}}"
+                                class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                <!-- End Tab Content 1 -->
+            </div>
+        </div>
+    </section>
+    @endforeach
+    <!-- End Features Section -->
+
     <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients">
-        <div class="container" data-aos="fade-up">
+        <div class="container" data-aos="zoom-out">
             <div class="clients-slider swiper">
                 <div class="swiper-wrapper align-items-center">
                     @foreach ($insurers as $insurer)
@@ -60,202 +193,110 @@
                     </div>
                     @endforeach
                 </div>
-                <div class="swiper-pagination"></div>
             </div>
         </div>
-
-    </section><!-- End Clients Section -->
-
-    <!-- ======= Values Section ======= -->
-    <section id="values" class="values">
-
-        <div class="container" data-aos="fade-up">
-
-            <header class="section-header">
-                <p>¿Qué tipo de seguro deseas?</p>
-            </header>
-
-            <div class="row justify-content-center">
-                @foreach ($solutions as $solution)
-                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="box">
-                        <a href="{{ route('solution.page', $solution->lower_name) }}">
-                            <img src="{{ route('solution.image', $solution->id) }}" class="img-fluid" alt="">
-                        </a>
-                        <h3>{{ $solution->name }}</h3>
-                        <p>{{ $solution->description }}</p>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-
-        </div>
-
-    </section><!-- End Values Section -->
-
-    <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
-
-        <div class="container" data-aos="fade-up">
-
-            <!-- Feature Icons -->
-            <div class="row feature-icons" data-aos="fade-up">
-                <h3 class="pb-2">Algunos de nuestros seguros</h3>
-
-                <div class="row">
-
-                    <div class="col-xl-4 text-center" data-aos="fade-right" data-aos-delay="100">
-                        <img src="{{asset('img/other.png')}}" class="img-fluid p-4" alt="">
-                    </div>
-
-                    <div class="col-xl-8 d-flex content">
-                        <div class="row align-self-center gy-4">
-                            @foreach ($insurances as $insurance)
-                            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
-                                <i class="{{ $insurance->icon }}"></i>
-                                <div>
-                                    <h4>{{ $insurance->name }}</h4>
-                                    <p>{{ $insurance->description }}</p>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                </div>
-
-            </div><!-- End Feature Icons -->
-
-        </div>
-
-    </section><!-- End Features Section -->
-
-    <!-- ======= Recent Blog Posts Section ======= -->
-    <section id="recent-blog-posts" class="recent-blog-posts">
-
-        <div class="container" data-aos="fade-up">
-
-            <header class="section-header">
-                <p>Blog</p>
-            </header>
-
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="post-box">
-                        <div class="post-img"><img src="{{asset('img/blog/blog-1.jpg')}}" class="img-fluid" alt="">
-                        </div>
-                        <span class="post-date">Tue, September 15</span>
-                        <h3 class="post-title">Eum ad dolor et. Autem aut fugiat debitis voluptatem consequuntur sit
-                        </h3>
-                        <a href="#" class="readmore stretched-link mt-auto"><span>Read More</span><i
-                                class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="post-box">
-                        <div class="post-img"><img src="{{asset('img/blog/blog-2.jpg')}}" class="img-fluid" alt="">
-                        </div>
-                        <span class="post-date">Fri, August 28</span>
-                        <h3 class="post-title">Et repellendus molestiae qui est sed omnis voluptates magnam</h3>
-                        <a href="#" class="readmore stretched-link mt-auto"><span>Read More</span><i
-                                class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="post-box">
-                        <div class="post-img"><img src="{{asset('img/blog/blog-3.jpg')}}" class="img-fluid" alt="">
-                        </div>
-                        <span class="post-date">Mon, July 11</span>
-                        <h3 class="post-title">Quia assumenda est et veritatis aut quae</h3>
-                        <a href="#" class="readmore stretched-link mt-auto"><span>Read More</span><i
-                                class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section><!-- End Recent Blog Posts Section -->
+    </section>
+    <!-- End Clients Section -->
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
-        <div class="container" data-aos="fade-up">
-            <header class="section-header">
-                <p>Contacto</p>
-            </header>
+        <div class="container">
+            <div class="section-header">
+                <h2>Contáctanos</h2>
+            </div>
+        </div>
 
-            <div class="row gy-4">
-                <div class="col-lg-6">
-                    <div class="row gy-4">
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <h3>Dirección</h3>
-                                <p>{{$contact->address}},<br>Medellín, Antioquia, Colombia</p>
+        <div class="map">
+            <div style="width: 100%">
+                <iframe width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                    src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Buriseguros+(Buriseguros)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                    <a href="https://www.maps.ie/distance-area-calculator.html">area maps</a>
+                </iframe>
+            </div>
+        </div>
+        <!-- End Google Maps -->
+
+        <div class="container">
+            <div class="row gy-5 gx-lg-5">
+                <div class="col-lg-4">
+                    <div class="info">
+                        <div class="info-item d-flex">
+                            <i class="fas fa-map-marker-alt flex-shrink-0"></i>
+                            <div>
+                                <h4>Dirección:</h4>
+                                <p>{{$contact->address ?? ''}}</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <i class="fas fa-phone-alt"></i>
-                                <h3>Teléfonos</h3>
-                                <p>{{$contact->phone}}<br>{{$contact->mobile}}</p>
+                        <!-- End Info Item -->
+
+                        <div class="info-item d-flex">
+                            <i class="far fa-envelope flex-shrink-0"></i>
+                            <div>
+                                <h4>Email:</h4>
+                                <p>{{$contact->email}}</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <i class="far fa-envelope"></i>
-                                <h3>Email</h3>
-                                <p>{{$contact->email}}<br>info@buriseguros.com</p>
+                        <!-- End Info Item -->
+
+                        <div class="info-item d-flex">
+                            <i class="fas fa-phone-alt flex-shrink-0"></i>
+                            <div>
+                                <h4>Teléfonos:</h4>
+                                <p>{{$contact->phone}}</p>
+                                <p>{{$contact->mobile}}</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <i class="far fa-clock"></i>
-                                <h3>Horario</h3>
+                        <!-- End Info Item -->
+
+                        <div class="info-item d-flex">
+                            <i class="far fa-clock flex-shrink-0"></i>
+                            <div>
+                                <h4>Horario:</h4>
                                 <p>Lunes - Viernes: 8:00 AM - 05:00 PM</p>
                                 <p>Sábado: 8:00 AM - 12:00 PM</p>
                             </div>
                         </div>
+                        <!-- End Info Item -->
                     </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <form action="#" method="post" class="php-email-form">
-                        <div class="row gy-4">
-                            <div class="col-md-6">
-                                <input type="text" name="name" class="form-control" placeholder="Nombre" required>
+                <div class="col-lg-8">
+                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre"
+                                    required />
                             </div>
-
-                            <div class="col-md-6 ">
-                                <input type="email" class="form-control" name="email" placeholder="Email" required>
+                            <div class="col-md-6 form-group mt-3 mt-md-0">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Tu Email"
+                                    required />
                             </div>
-
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" name="subject" placeholder="Asunto" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto"
+                                required />
+                        </div>
+                        <div class="form-group mt-3">
+                            <textarea class="form-control" name="message" placeholder="Mensaje" required></textarea>
+                        </div>
+                        <div class="my-3">
+                            <div class="loading">Cargando</div>
+                            <div class="error-message"></div>
+                            <div class="sent-message">
+                                Your message has been sent. Thank you!
                             </div>
-
-                            <div class="col-md-12">
-                                <textarea class="form-control" name="message" rows="6" placeholder="Mensaje"
-                                    required></textarea>
-                            </div>
-
-                            <div class="col-md-12 text-center">
-                                <div class="loading">Loading</div>
-                                <div class="error-message"></div>
-                                <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                                <button type="submit">Enviar</button>
-                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit">Enviar Mensaje</button>
                         </div>
                     </form>
                 </div>
+                <!-- End Contact Form -->
             </div>
         </div>
-    </section><!-- End Contact Section -->
-
-</main><!-- End #main -->
+    </section>
+    <!-- End Contact Section -->
+</main>
+<!-- End #main -->
 
 @endsection

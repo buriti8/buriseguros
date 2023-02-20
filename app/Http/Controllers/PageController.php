@@ -22,7 +22,7 @@ class PageController extends Controller
     {
         $insurers = Insurer::status()->get();
         $insurances = Insurance::status()->take(6)->get();
-        $solutions = Solution::status()->get();
+        $solutions = Solution::status()->orderBy('name', 'DESC')->get();
         $recent_posts = Post::status()->latest()->take(3)->get();
         $contact = Contact::findOrFail(1);
 

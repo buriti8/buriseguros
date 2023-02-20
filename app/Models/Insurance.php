@@ -71,6 +71,14 @@ class Insurance extends Model
         return $builder->orderBy('name', 'ASC');
     }
 
+    /**
+     * @param Builder $builder
+     */
+    public function scopeSolution(Builder $builder, $solution_id)
+    {
+        $builder->where('solution_id', $solution_id)->orderBy('name', 'ASC');
+    }
+
     public static function getArrayList()
     {
         $lists = [
