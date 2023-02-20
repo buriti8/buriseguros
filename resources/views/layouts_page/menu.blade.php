@@ -21,7 +21,7 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li>
-                        <a class="nav-link" href="index.html#about">Inicio</a>
+                        <a class="nav-link" href="{{route('page.index')}}">Inicio</a>
                     </li>
                     <li class="dropdown">
                         <a href="#"><span>Personales</span>
@@ -29,7 +29,9 @@
                         <ul>
                             @foreach ($personals as $personal)
                             <li>
-                                <a href="#">{{$personal->name ?? ''}}</a>
+                                <a href="{{ route('insurance.page', $personal->slug) }}">
+                                    {{$personal->name ?? ''}}
+                                </a>
                             </li>
                             @endforeach
                         </ul>
@@ -40,12 +42,14 @@
                         <ul>
                             @foreach ($businesses as $business)
                             <li>
-                                <a href="#">{{$business->name ?? ''}}</a>
+                                <a href="{{ route('insurance.page', $business->slug) }}">
+                                    {{$business->name ?? ''}}
+                                </a>
                             </li>
                             @endforeach
                         </ul>
                     </li>
-                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="{{route('blog.index')}}">Blog</a></li>
                     <li>
                         <a class="nav-link scrollto" href="index.html#contact">Contacto</a>
                     </li>

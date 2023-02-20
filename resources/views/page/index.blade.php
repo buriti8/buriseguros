@@ -158,7 +158,7 @@
                             </div>
                             <div class="recent-blog-posts">
                                 <div class="post-box">
-                                    <a href="blog-details.html" class="readmore stretched-link">
+                                    <a href="{{ route('insurance.page', $type->slug) }}" class="readmore stretched-link">
                                         <span>Saber más</span>
                                         <i class="fas fa-long-arrow-alt-right"></i>
                                     </a>
