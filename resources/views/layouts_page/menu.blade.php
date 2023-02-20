@@ -13,7 +13,7 @@
 <body>
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top" data-scrollto-offset="0">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
             <a href="{{route('page.index')}}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
                 <img src="{{ route('contact.image', 1) }}?{{rand(0, 1000)}}" alt="Logo">
             </a>
@@ -23,32 +23,21 @@
                     <li>
                         <a class="nav-link" href="{{route('page.index')}}">Inicio</a>
                     </li>
+                    @foreach ($solutions as $key => $solution)
                     <li class="dropdown">
-                        <a href="#"><span>Personales</span>
+                        <a href="#"><span>{{ $solution->name ?? '' }}</span>
                             <i class="fas fa-chevron-down dropdown-indicator"></i></a>
                         <ul>
-                            @foreach ($personals as $personal)
+                            @foreach ($solution->insurance_types($key+1) as $type)
                             <li>
-                                <a href="{{ route('insurance.page', $personal->slug) }}">
-                                    {{$personal->name ?? ''}}
+                                <a href="{{ route('insurance.page', $type->slug) }}">
+                                    {{$type->name ?? ''}}
                                 </a>
                             </li>
                             @endforeach
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#"><span>Empresariales</span>
-                            <i class="fas fa-chevron-down dropdown-indicator"></i></a>
-                        <ul>
-                            @foreach ($businesses as $business)
-                            <li>
-                                <a href="{{ route('insurance.page', $business->slug) }}">
-                                    {{$business->name ?? ''}}
-                                </a>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </li>
+                    @endforeach
                     <li><a href="{{route('blog.index')}}">Blog</a></li>
                     <li>
                         <a class="nav-link scrollto" href="index.html#contact">Contacto</a>
@@ -57,8 +46,6 @@
                 <i class="fas fa-bars mobile-nav-toggle d-none"></i>
             </nav>
             <!-- .navbar -->
-
-            <a class="btn-getstarted scrollto" href="index.html#about">Quitar</a>
         </div>
     </header>
     <!-- End Header -->
@@ -79,11 +66,11 @@
                         <ul>
                             <li>
                                 <i class="fas fa-chevron-right"></i>
-                                <a href="#">Inicio</a>
+                                <a href="{{route('page.index')}}">Inicio</a>
                             </li>
                             <li>
                                 <i class="fas fa-chevron-right"></i>
-                                <a href="#">Blog</a>
+                                <a href="{{route('blog.index')}}">Blog</a>
                             </li>
                             <li>
                                 <i class="fas fa-chevron-right"></i>
@@ -95,14 +82,12 @@
                     <div class="col-lg-2 col-md-6 footer-links">
                         <h4>Soluciones</h4>
                         <ul>
+                            @foreach ($solutions as $key => $solution)
                             <li>
                                 <i class="fas fa-chevron-right"></i>
-                                <a href="#">Personales</a>
+                                <a href="#">{{ $solution->name ?? '' }}</a>
                             </li>
-                            <li>
-                                <i class="fas fa-chevron-right"></i>
-                                <a href="#">Empresariales</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
 

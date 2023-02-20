@@ -13,6 +13,7 @@
                         <h3>{{$insurance->name ?? ''}}</h3>
                         <div>
                             {!! $insurance->content ?? '' !!}
+                            {!! $insurance->fullcontent ?? '' !!}
                         </div>
                     </div>
                     <div class="col-lg-4 order-1 order-lg-2 text-center" data-aos="fade-up" data-aos-delay="200">

@@ -3,7 +3,6 @@
 namespace App\Http\ViewComposers;
 
 use App\Models\Contact;
-use App\Models\Insurance;
 use App\Models\Network;
 use App\Models\Solution;
 use Illuminate\Contracts\View\View;
@@ -20,14 +19,12 @@ class MenuComposer
     {
         $networks = Network::status()->get();
         $contact = Contact::findOrFail(1);
-        $personals = Insurance::status()->solution(Solution::PERSONAL)->get();
-        $businesses = Insurance::status()->solution(Solution::BUSINESS)->get();
+        $solutions = Solution::status()->get();
 
         $view->with([
             'networks' => $networks,
             'contact' => $contact,
-            'personals' => $personals,
-            'businesses' => $businesses,
+            'solutions' => $solutions,
         ]);
     }
 }
