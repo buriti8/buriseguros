@@ -14,7 +14,6 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/users.js', 'public/js')
 
-    .js('resources/js/js/contact-form.js', 'public/js')
     .js('resources/js/js/main.js', 'public/js')
     
     .sass('resources/sass/app.scss', 'public/css')
