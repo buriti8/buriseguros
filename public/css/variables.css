@@ -46,9 +46,9 @@
   --color-primary-dark-rgb: 0, 119, 113;
 
   /* Secondary colors */
-  --color-secondary: #485664;
-  --color-secondary-light: #8f9fae;
-  --color-secondary-dark: #3a4753;
+  --color-secondary: #373d3d;
+  --color-secondary-light: #6E7674;
+  --color-secondary-dark: #030303;
 
   --color-secondary-rgb: 72, 86, 100;
   --color-secondary-light-rgb: 143, 159, 174;

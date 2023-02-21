@@ -159,7 +159,7 @@ class SolutionController extends Controller
     public function getImage(Solution $solution)
     {
         if ($solution->image) {
-            $img = \Image::make(storage_path("app/" . $solution->image))->resize(300, null, function ($constraint) {
+            $img = \Image::make(storage_path("app/" . $solution->image))->resize(500, null, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });

@@ -21,7 +21,7 @@ class PageController extends Controller
     public function index()
     {
         $insurers = Insurer::status()->get();
-        $insurances = Insurance::status()->take(6)->get();
+        $insurances = Insurance::where('id', 2)->orWhere('id', 6)->get();
         $solutions = Solution::status()->orderBy('name', 'DESC')->get();
         $recent_posts = Post::status()->latest()->take(3)->get();
         $contact = Contact::findOrFail(1);

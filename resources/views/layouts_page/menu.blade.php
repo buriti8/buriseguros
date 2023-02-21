@@ -38,7 +38,7 @@
                         </ul>
                     </li>
                     @endforeach
-                    <li><a href="{{route('blog.index')}}">Blog</a></li>
+                    {{-- <li><a href="{{route('blog.index')}}">Blog</a></li> --}}
                     <li>
                         <a class="nav-link scrollto" href="index.html#contact">Contacto</a>
                     </li>
@@ -68,10 +68,10 @@
                                 <i class="fas fa-chevron-right"></i>
                                 <a href="{{route('page.index')}}">Inicio</a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <i class="fas fa-chevron-right"></i>
                                 <a href="{{route('blog.index')}}">Blog</a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <i class="fas fa-chevron-right"></i>
                                 <a href="#">Contacto</a>

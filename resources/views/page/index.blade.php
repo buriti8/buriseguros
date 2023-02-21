@@ -5,11 +5,12 @@
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="hero carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
     <div class="carousel-inner">
-        <div class="carousel-item active">
+        @foreach ($insurances as $item)
+        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
             <div class="container">
                 <div class="row justify-content-center gy-6">
                     <div class="col-lg-5 col-md-8">
-                        <img src="http://localhost/test/php/buriseguros/public/insurances/2/image" alt=""
+                        <img src="{{ route('insurance.image', $item->id) }}" alt=""
                             class="img-fluid img" />
                     </div>
 
@@ -23,37 +24,16 @@
                             exercitation ullamco laboris nisi ut aliquip
                             ex ea commodo consequat.
                         </p> --}}
-                        <a href="#featured-services" class="btn-get-started scrollto">
+                        <a href="{{ route('insurance.page', $item->slug) }}" class="btn-get-started scrollto">
                             Saber más
                         </a>
                     </div>
                 </div>
             </div>
         </div>
+        @endforeach
         <!-- End Carousel Item -->
 
-        <div class="carousel-item">
-            <div class="container">
-                <div class="row justify-content-center gy-6">
-                    <div class="col-lg-5 col-md-8">
-                        <img src="{{asset('img/hero-carousel-2.svg')}}" alt="" class="img-fluid img" />
-                    </div>
-
-                    <div class="col-lg-9 text-center">
-                        <h2>At vero eos et accusamus</h2>
-                        <p>
-                            Nam libero tempore, cum soluta nobis est
-                            eligendi optio cumque nihil impedit quo
-                            minus id quod maxime placeat facere
-                            possimus, omnis voluptas assumenda est,
-                            omnis dolor repellendus. Temporibus autem
-                            quibusdam et aut officiis debitis aut.
-                        </p>
-                        <a href="#featured-services" class="btn-get-started scrollto">Get Started</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- End Carousel Item -->
     </div>
 
@@ -83,7 +63,11 @@
             <div class="row g-4 g-lg-5" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-lg-5">
                     <div class="about-img">
-                        <img src="{{asset('img/familia.jpeg')}}" class="img-fluid" alt="" />
+                        @foreach ($solutions as $key => $solution)
+                        <img src="{{ route('solution.image', $solution->id) }}"
+                            class="img-fluid {{ $loop->first ? 'd-block' : 'd-none' }}"
+                            alt="{{ $solution->name ?? '' }}" id="features_{{$key}}" />
+                        @endforeach
                     </div>
                 </div>
 
@@ -158,7 +142,8 @@
                             </div>
                             <div class="recent-blog-posts">
                                 <div class="post-box">
-                                    <a href="{{ route('insurance.page', $type->slug) }}" class="readmore stretched-link">
+                                    <a href="{{ route('insurance.page', $type->slug) }}"
+                                        class="readmore stretched-link">
                                         <span>Saber más</span>
                                         <i class="fas fa-long-arrow-alt-right"></i>
                                     </a>

@@ -20,10 +20,12 @@
                         <img src="{{ route('insurance.image', $insurance->id) }}" alt="{{$insurance->name ?? ''}}"
                             class="img-fluid" />
 
+                        @if ($insurance->id == 6)
                         <div class="mt-4">
                             <h3>Cotiza aquí</h3>
                             <div id="cpc1" class="mt-3"></div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -32,6 +34,7 @@
 </section>
 
 @section('javascript')
+@if ($insurance->id == 6)
 <script src="https://lab.suraenlinea.com/widgets/credito-protegido-cotizar/plan-credito-260-380/soat-cotizar.min.js">
 </script>
 <script>
@@ -48,6 +51,7 @@
 
     document.addEventListener('DOMContentLoaded', fn, true);
 </script>
+@endif
 @endsection
 
 @endsection
