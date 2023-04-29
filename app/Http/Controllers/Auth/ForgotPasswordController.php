@@ -36,4 +36,11 @@ class ForgotPasswordController extends Controller
         Session::flash('message', __('passwords.sent'));
         return redirect(route('login'));
     }
+
+    public function showLinkRequestFormCart($token = null)
+    {
+        return view('auth_cart.passwords.email', [
+            'token' => $token,
+        ]);
+    }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Abstracts;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 
 /**
@@ -15,7 +14,7 @@ abstract class BasicModelRequest extends FormRequest
     /**
      * @return string
      */
-    abstract protected function getLangFile() : string;
+    abstract protected function getLangFile(): string;
 
     /**
      * @return array
@@ -23,7 +22,8 @@ abstract class BasicModelRequest extends FormRequest
     public function attributes()
     {
         $lang_prefix = $this->getLangFile();
-        return collect($this->rules())->keys()->mapWithKeys(function($field) use($lang_prefix) {
+
+        return collect($this->rules())->keys()->mapWithKeys(function ($field) use ($lang_prefix) {
             return [$field => __("{$lang_prefix}.{$field}")];
         })->toArray();
     }
@@ -33,6 +33,5 @@ abstract class BasicModelRequest extends FormRequest
      */
     public function withValidator(Validator $validator)
     {
-
     }
 }

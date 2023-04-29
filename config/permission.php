@@ -72,6 +72,11 @@ return [
     ],
 
     'column_names' => [
+        /*
+         * Change this if you want to name the related pivots other than defaults
+         */
+        'role_pivot_key' => null, //default 'role_id',
+        'permission_pivot_key' => null, //default 'permission_id',
 
         /*
          * Change this if you want to name the related model primary key other than
@@ -80,48 +85,77 @@ return [
          * For example, this would be nice if your primary keys are all UUIDs. In
          * that case, name this `model_uuid`.
          */
+
         'model_morph_key' => 'model_id',
+
+        /*
+         * Change this if you want to use the teams feature and your related model's
+         * foreign key is other than `team_id`.
+         */
+
+        'team_foreign_key' => 'team_id',
     ],
 
     /*
-     * When set to true, the required permission/role names are added to the exception
+     * When set to true, the method for checking permissions will be registered on the gate.
+     * Set this to false, if you want to implement custom logic for checking permissions.
+     */
+
+    'register_permission_check_method' => true,
+
+    /*
+     * When set to true the package implements teams using the 'team_foreign_key'. If you want
+     * the migrations to register the 'team_foreign_key', you must set this to true
+     * before doing the migration. If you already did the migration then you must make a new
+     * migration to also add 'team_foreign_key' to 'roles', 'model_has_roles', and
+     * 'model_has_permissions'(view the latest version of package's migration file)
+     */
+
+    'teams' => false,
+
+    /*
+     * When set to true, the required permission names are added to the exception
      * message. This could be considered an information leak in some contexts, so
      * the default setting is false here for optimum safety.
      */
 
     'display_permission_in_exception' => false,
 
+    /*
+     * When set to true, the required role names are added to the exception
+     * message. This could be considered an information leak in some contexts, so
+     * the default setting is false here for optimum safety.
+     */
+
+    'display_role_in_exception' => false,
+
+    /*
+     * By default wildcard permission lookups are disabled.
+     */
+
+    'enable_wildcard_permission' => false,
+
     'cache' => [
 
         /*
-         * By default all permissions will be cached for 24 hours unless a permission or
-         * role is updated. Then the cache will be flushed immediately.
+         * By default all permissions are cached for 24 hours to speed up performance.
+         * When permissions or roles are updated the cache is flushed automatically.
          */
 
-        'expiration_time' => 60 * 24,
+        'expiration_time' => \DateInterval::createFromDateString('24 hours'),
 
         /*
-         * The key to use when tagging and prefixing entries in the cache.
+         * The cache key used to store all permissions.
          */
 
         'key' => 'spatie.permission.cache',
-
-        /*
-         * When checking for a permission against a model by passing a Permission
-         * instance to the check, this key determines what attribute on the
-         * Permissions model is used to cache against.
-         *
-         * Ideally, this should match your preferred way of checking permissions, eg:
-         * `$user->can('view-posts')` would be 'name'.
-         */
-
-        'model_key' => 'name',
 
         /*
          * You may optionally indicate a specific cache driver to use for permission and
          * role caching using any of the `store` drivers listed in the cache.php config
          * file. Using 'default' here means to use the `default` set in cache.php.
          */
+
         'store' => 'default',
     ],
 ];

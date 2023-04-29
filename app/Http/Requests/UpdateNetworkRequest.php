@@ -24,9 +24,9 @@ class UpdateNetworkRequest extends BasicModelRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|required|string|max:191',
+            'name' => 'sometimes|required|string|max:255',
             'link' => 'sometimes|required|url',
-            'icon' => 'sometimes|required|string|max:191',
+            'icon' => 'sometimes|required|string|max:255',
             'status' => 'sometimes|nullable'
         ];
     }

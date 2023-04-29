@@ -6,15 +6,17 @@ return [
     'updated' => 'La opción de lista :name ha sido actualizada con éxito.',
     'deleted' => 'La opción de lista :name ha sido eliminada con éxito.',
 
-    //Tags
-    'list_name' => 'Lista',
-    'list' => 'Lista',
-    'option_key' => 'Código',
-    'option' => 'Opción de la lista',
-    'status' => 'Estado',
+    'view_lists' => 'Ver Listas',
+    'new_option' => 'Nueva opción de lista',
+    'new_list' => 'Nueva opción de lista',
+    'edit_list' => 'Edición opción de lista',
 
     //Tags
-    'new_option' => 'Nueva opción de lista',
-    'new_list' => 'Nueva opción de lista / Edición Lista',
-    'edit_list' => 'Edición opción de lista',
+    'list' => 'Lista',
+    'list_name' => 'Lista',
+    'option' => 'Opción de la lista',
+    'option_key' => 'Código de la lista',
+    'status' => 'Estado',
+
+    'select_list' => 'Seleccione la lista',
 ];

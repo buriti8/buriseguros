@@ -19,7 +19,7 @@
         @permission(['edit_lists', 'all_lists'])
         <td class="text-center">
             @if(!isset($protected[$o->list]) || !isset($protected[$o->list][$o->option_key]))
-            <form action="{{url("/admin/lists/{$o->id}")}}" method="post">
+            <form action="{{url("/lists/{$o->id}")}}" method="post">
                 @csrf
                 @method('put')
                 <input type="hidden" name="status" value="{{$o->status ? 0 : 1}}" />
@@ -31,7 +31,7 @@
         </td>
         <td class="text-center">
             @if(!isset($protected[$o->list]) || !isset($protected[$o->list][$o->option_key]))
-            <a href="{{url("/admin/lists/{$o->id}/edit")}}" class="btn btn-sm btn-default btn-xs" title="Editar"><i
+            <a href="{{url("/lists/{$o->id}/edit")}}" class="btn btn-sm btn-default btn-xs" title="Editar"><i
                     class="fa fa-fw fa-edit"></i>
             </a>
             @endif

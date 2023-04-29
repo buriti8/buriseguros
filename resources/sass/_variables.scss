@@ -2,11 +2,10 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: "Nunitoo", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
-// Colors
+// Colors Bootstrap
 $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;
@@ -17,15 +16,13 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
-$blue_page: #195697;
 $white: #fff;
-$dark_gray: #bdbdbd;
+$black:#000000;
+$dark_gray: #252620;
+$ligth_gray: #bdbdbd;
+
+// Colors page
 $primary: #009CA6;
 $primary-hover: #007377;
 $secondary: #888B8D;
 $secondary-hover: #bcbcbb;
-$ligth_gray: rgba(0, 0, 0, 0.05);
-$black: rgb(0, 0, 0);
-
-//Measure
-$border: 1px solid;

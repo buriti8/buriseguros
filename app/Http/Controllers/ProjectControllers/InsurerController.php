@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class InsurerController extends Controller
 {
@@ -20,12 +21,14 @@ class InsurerController extends Controller
      */
     public function index(Request $request)
     {
-        $search = [];
-
         if ($request->has('q')) {
-            $search = $request->get('q', []);
+            $search = $request->has('q') ? $request->get('q') : [];
         } else {
-            $search = get_last_user_search('insurers', []);
+            if ($request->has('page')) {
+                $search = get_last_user_search('insurers', []);
+            } else {
+                $search = [];
+            }
         }
 
         set_last_user_search('insurers', $search);
@@ -45,10 +48,10 @@ class InsurerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Insurer $insurers)
+    public function create(Insurer $insurer)
     {
         return view("insurers.create", [
-            'insurers' => $insurers,
+            'insurer' => $insurer,
         ]);
     }
 
@@ -63,21 +66,23 @@ class InsurerController extends Controller
         try {
             DB::beginTransaction();
 
-            $insurers = new Insurer($request->validated());
+            $insurer = new Insurer($request->validated());
 
-            if ($insurers->save()) {
-                Session::flash('success', __('insurers.created', ['name' => $insurers->name]));
+            if ($insurer->save()) {
+                Session::flash('success', __('insurers.created', ['name' => $insurer->name]));
                 DB::commit();
-            } else {
-                Session::flash('error', __('insurers.error', ['name' => $insurers->name, 'action' => 'crear']));
-                DB::rollBack();
             }
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            Session::flash('error', __('insurers.error', ['name' => $insurer->name, 'action' => 'crear']));
         }
 
-        return redirect()->route('insurers.index');
+        if ($insurer) {
+            return redirect()->route('insurers.show', $insurer->id);
+        } else {
+            return redirect()->route('insurers.index');
+        }
     }
 
     /**
@@ -88,7 +93,11 @@ class InsurerController extends Controller
      */
     public function show($id)
     {
-        //
+        $insurer = Insurer::findOrFail($id);
+
+        return view('insurers.detail', [
+            'insurer' => $insurer,
+        ]);
     }
 
     /**
@@ -99,10 +108,10 @@ class InsurerController extends Controller
      */
     public function edit($id)
     {
-        $insurers = Insurer::findOrFail($id);
+        $insurer = Insurer::findOrFail($id);
 
         return view("insurers.edit", [
-            'insurers' => $insurers,
+            'insurer' => $insurer,
         ]);
     }
 
@@ -118,21 +127,23 @@ class InsurerController extends Controller
         try {
             DB::beginTransaction();
 
-            $insurers = Insurer::findOrFail($id);
+            $insurer = Insurer::findOrFail($id);
 
-            if ($insurers->update($request->validated())) {
-                Session::flash('success', __('insurers.updated', ['name' => $insurers->name]));
+            if ($insurer->update($request->validated())) {
+                Session::flash('success', __('insurers.updated', ['name' => $insurer->name]));
                 DB::commit();
-            } else {
-                Session::flash('error', __('insurers.error', ['name' => $insurers->name, 'action' => 'actualizar']));
-                DB::rollBack();
             }
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            Session::flash('error', __('insurers.error', ['name' => $insurer->name, 'action' => 'actualizar']));
         }
 
-        return redirect()->route('insurers.index');
+        if ($insurer->wasChanged('status')) {
+            return redirect()->route('insurers.index');
+        }
+
+        return redirect()->route('insurers.show', $insurer->id);
     }
 
     /**
@@ -143,14 +154,14 @@ class InsurerController extends Controller
      */
     public function destroy($id)
     {
-        $insurers = Insurer::findOrFail($id);
+        $insurer = Insurer::findOrFail($id);
 
         try {
-            $insurers->delete();
-            Session::flash('success', __('insurers.deleted', ['name' => $insurers->name]));
+            $insurer->delete();
+            Session::flash('success', __('insurers.deleted', ['name' => $insurer->name]));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            Session::flash('error', __('insurers.delete_error', ['name' => $insurers->name]));
+            Session::flash('error', __('insurers.error', ['name' => $insurer->name]));
         }
 
         return redirect()->route('insurers.index');
@@ -159,7 +170,7 @@ class InsurerController extends Controller
     public function getImage(Insurer $insurer)
     {
         if ($insurer->image) {
-            $img = \Image::make(storage_path("app/" . $insurer->image))->resize(220, null, function ($constraint) {
+            $img = Image::make(storage_path("app/" . $insurer->image))->resize(80, null, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });

@@ -16,7 +16,6 @@ trait CustomAttributesTrait
      */
     public function setAttribute($name, $value)
     {
-
         if ($value) {
             if ($this->isTimeAttr($name)) {
                 return $this->setTimeAttr($name, $value);
@@ -186,12 +185,14 @@ trait CustomAttributesTrait
     protected function setUpperAttr($name, $value)
     {
         $this->attributes[$name] = Str::upper($value);
+
         return $this;
     }
 
     protected function setUcwordAttr($name, $value)
     {
         $this->attributes[$name] = ucwords(Str::lower($value));
+
         return $this;
     }
 

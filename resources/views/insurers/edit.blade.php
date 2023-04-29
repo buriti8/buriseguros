@@ -1,10 +1,11 @@
 @extends('layouts.menu')
 
-@section('title', '| ' . __('base_lang.insurers') . ' - ' . __('base_lang.edit'))
+@section('title', __('base_lang.insurers') . ' - ' . __('base_lang.edit'))
 
 @section('title_page')
 <i class="fas fa-briefcase"></i>&nbsp;@lang('base_lang.insurers')&nbsp;
-<i class="fa fa-caret-right"></i>&nbsp;@lang('base_lang.edit')
+<i class="fa fa-caret-right"></i>&nbsp;@lang('base_lang.edit')&nbsp;
+<i class="fa fa-caret-right"></i>&nbsp;{{$insurer->name ?? ''}}
 @endsection
 
 @section('content_page')
@@ -16,7 +17,7 @@
             @permission(['view_insurers', 'all_insurers'])
             <div class="mb-2">
                 <a href="{{ route('insurers.index') }}" class="btn btn-sm btn-primary">
-                    <i class="fas fa-briefcase"></i>
+                    <i class="fas fa-lg fa-briefcase"></i>
                     @lang('insurers.view_insurers')
                 </a>
             </div>

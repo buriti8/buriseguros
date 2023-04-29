@@ -1,19 +1,20 @@
-<form role="form" method="POST" action="{{ url('/admin/insurances' . ($insurances->id ? "/{$insurances->id}" : '')) }}"
+<form role="form" method="POST"
+    action="{{ ($insurance->id ? route('insurances.update', $insurance->id) : route('insurances.store', $insurance->id)) }}"
     enctype="multipart/form-data">
     @csrf
-    @if($insurances->id)
+    @if($insurance->id)
     @method('put')
     @endif
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-12 col-md-3">
                 <label>*@lang('insurances.name')</label>
                 <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-shield-alt"></i></div>
                     </div>
                     <input id="name" type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
-                        name="name" value="{{ old('name', $insurances->name ?? '') }}"
+                        name="name" value="{{ old('name', $insurance->name ?? '') }}"
                         placeholder="@lang('insurances.name')">
                     @if($errors->has('name'))
                     <span class="invalid-feedback">
@@ -22,7 +23,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-12 col-md-3">
                 <label>*@lang('insurances.solution_id')</label>
                 <div class="input-group input-group-sm mb-2 {{ $errors->has('solution_id') ? 'has-error' : '' }}">
                     <select class="form-control-sm select2 {{ $errors->has('solution_id') ? 'is-invalid' : '' }} w-100"
@@ -30,7 +31,7 @@
                         <option value="">@lang('insurances.select_solution')</option>
                         @foreach($solutions as $solution)
                         <option value="{{$solution->id}}"
-                            {{ $solution->id==old('solution_id', $insurances->solution_id ?? '') ? 'selected' : '' }}>
+                            {{ $solution->id==old('solution_id', $insurance->solution_id ?? '') ? 'selected' : '' }}>
                             {{ $solution->name }}
                         </option>
                         @endforeach
@@ -42,7 +43,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-12 col-md-3">
                 <label>*@lang('insurances.image')</label>
                 <div class="form-group">
                     <div class="custom-file">
@@ -57,17 +58,17 @@
                         </span>
                         @endif
                     </div>
-                    <small class="form-text">@lang('base_lang.image_rules_jpg')</small>
+                    <small class="form-text">@lang('base_lang.image_rules')</small>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-12 col-md-3">
                 <label>*@lang('insurances.icon')</label>
                 <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="far fa-smile-beam"></i></div>
                     </div>
                     <input id="icon" type="text" class="form-control {{ $errors->has('icon') ? 'is-invalid' : '' }}"
-                        name="icon" value="{{ old('icon', $insurances->icon ?? '') }}"
+                        name="icon" value="{{ old('icon', $insurance->icon ?? '') }}"
                         placeholder="@lang('insurances.icon')">
                     @if($errors->has('icon'))
                     <span class="invalid-feedback">
@@ -81,10 +82,23 @@
                 <div class="input-group input-group-sm mb-2">
                     <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
                         name="description" placeholder="@lang('insurances.description')"
-                        rows="3">{{ old('description', $insurances->description ?? '') }}</textarea>
+                        rows="2">{{ old('description', $insurance->description ?? '') }}</textarea>
                     @if($errors->has('description'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('description') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <label>*@lang('insurances.pre_content')</label>
+                <div class="input-group input-group-sm mb-2">
+                    <textarea class="form-control {{ $errors->has('pre_content') ? 'is-invalid' : '' }}" name="pre_content"
+                        placeholder="@lang('insurances.pre_content')"
+                        rows="10">{{ old('pre_content', $insurance->pre_content ?? '') }}</textarea>
+                    @if($errors->has('pre_content'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('pre_content') }}</strong>
                     </span>
                     @endif
                 </div>
@@ -94,7 +108,7 @@
                 <div class="input-group input-group-sm mb-2">
                     <textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content"
                         placeholder="@lang('insurances.content')"
-                        rows="10">{{ old('content', $insurances->content ?? '') }}</textarea>
+                        rows="10">{{ old('content', $insurance->content ?? '') }}</textarea>
                     @if($errors->has('content'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('content') }}</strong>

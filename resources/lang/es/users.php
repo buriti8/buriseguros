@@ -7,6 +7,7 @@ return [
     'deleted' => 'El usuario :name ha sido eliminado con éxito.',
     'failed' => 'El usuario :name no puede ser eliminado porque tiene registros asociados.',
     'error' => 'El usuario :name no puede ser :action con éxito.',
+    'password_updated' => 'La contraseña ha sido actualizada con éxito.',
 
     //Tags
     'new_user' => 'Nuevo Usuario',
@@ -28,8 +29,6 @@ return [
     'password' => 'Contraseña',
     'confirm_password' => 'Confirme la contraseña',
     'is_admin' => '¿Es Administrador?',
-
-    //Tags
     'change_password' => 'Cambiar contraseña',
     'impersonate' => 'Ingresar como',
     'leave_impersonate' => 'Salir como :name',
@@ -46,5 +45,4 @@ return [
     'register' => 'Registrarse',
     'continue' => 'Continuar',
     'login' => 'Ingresar',
-    'password_updated' => 'La contraseña ha sido actualizada con éxito.',
 ];

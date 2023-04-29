@@ -24,7 +24,7 @@ class CreateSolutionRequest extends BasicModelRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:191',
+            'name' => 'required|string|max:255',
             'image' => 'required|mimes:png',
             'description' => 'required|string',
             'status' => 'nullable'

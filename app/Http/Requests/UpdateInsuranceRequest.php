@@ -30,6 +30,7 @@ class UpdateInsuranceRequest extends BasicModelRequest
             'image' => 'sometimes|required|mimes:png,jpg',
             'icon' => 'sometimes|required|string|max:191',
             'description' => 'sometimes|required|string',
+            'pre_content' => 'sometimes|required|string',
             'content' => 'sometimes|required|string',
             'status' => 'sometimes|nullable'
         ];

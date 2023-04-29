@@ -5,8 +5,7 @@ namespace App\Http\Controllers\ProjectControllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Requests\StoreRolePermissionsRequest;
-use App\RoleBase;
-use Illuminate\Http\Request;
+use App\Models\RoleBase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -24,13 +23,10 @@ class RolesController extends Controller
         $roles = RoleBase::admin()->OrderBy('name', 'ASC')->paginate($per_page);
         $roles->appends('per_page', $per_page);
 
-
-        return view("roles.create", [
+        return view("roles.index", [
             "roles" => $roles,
             'roles_base' => [
                 'ADMINISTRADOR',
-                'EMPLEADO',
-                'GESTIÓN HUMANA'
             ]
         ]);
     }
@@ -42,11 +38,12 @@ class RolesController extends Controller
     public function store(CreateRoleRequest $request)
     {
         $role = new Role($request->validated());
+
         if ($role->save()) {
             Session::flash('success', __('roles.saved', ['name' => Str::upper($role->name)]));
         }
 
-        return redirect()->route('roles.index');
+        return redirect('/roles');
     }
 
     /**
@@ -55,7 +52,6 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-
         try {
             if (!$role->users->count() && $role->delete()) {
                 Session::flash('success', __('roles.deleted', ['name' => Str::upper($role->name)]));
@@ -65,7 +61,7 @@ class RolesController extends Controller
         } catch (\Exception $exception) {
             Log::error('Error deleting role: ' . $exception->getMessage());
         } finally {
-            return redirect()->route('roles.index');
+            return redirect('roles');
         }
     }
 
@@ -95,6 +91,6 @@ class RolesController extends Controller
         $role->syncPermissions(collect($request->validated())->keys()->toArray());
         Session::flash('success', 'Los permisos han sido asignados exitosamente.');
 
-        return redirect('/admin/roles/' . $role->id . '/permissions');
+        return redirect('/roles/' . $role->id . '/permissions');
     }
 }

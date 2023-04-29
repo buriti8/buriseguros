@@ -59,4 +59,11 @@ class ResetPasswordController extends Controller
 
         $this->guard()->login($user);
     }
+
+    public function showResetFormCart($token = null)
+    {
+        return view('auth_cart.passwords.reset', [
+            'token' => $token
+        ]);
+    }
 }

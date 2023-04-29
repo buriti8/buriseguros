@@ -45,16 +45,17 @@ abstract class Validation
     {
         switch ($parameter) {
             case 'master':
-                return Validation::permissionsUser('lists')
-                    || Validation::permissionsUser('insurers')
-                    || Validation::permissionsUser('networks')
-                    || Validation::permissionsUser('solutions');
-            case 'blog':
-                return Validation::permissionsUser('posts');
+                return Validation::permissionsUser('lists');
+            case 'insurers':
+                return Validation::permissionsUser('insurers');
+            case 'networks':
+                return Validation::permissionsUser('networks');
+            case 'solutions':
+                return Validation::permissionsUser('solutions');
+            case 'information':
+                return Validation::permissionsUser('information');
             case 'insurances':
                 return Validation::permissionsUser('insurances');
-            case 'contacts':
-                return Validation::permissionsUser('contacts');
             default:
                 return false;
         }

@@ -23,8 +23,17 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('active')->default(true);
             $table->boolean('is_admin')->default(false);
+            $table->integer('module_id')->nullable();
+            $table->string('module', 30)->nullable();
             $table->boolean('is_new')->default(true);
+            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->unsignedBigInteger('updated_by_id')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('created_by_id')->references('id')->on('users');
+            $table->foreign('updated_by_id')->references('id')->on('users');
         });
     }
 

@@ -39,8 +39,8 @@ class UpdateUserRequest extends BasicModelRequest
                 Rule::unique('users', 'email')->ignore($this->user),
             ],
             'password' => 'sometimes|required|confirmed|min:6',
-            'is_admin' => 'sometimes|required',
-            'role' => 'required_if:is_admin,0',
+            'is_admin'=> 'sometimes|required',
+            'role'=> 'required_if:is_admin,0',
             'active' => 'sometimes|bool',
         ];
     }
@@ -59,7 +59,7 @@ class UpdateUserRequest extends BasicModelRequest
     public function messages()
     {
         return [
-            'role.required_if' => __('validation.required', ['attribute', $this->attributes()['role'] ?? 'role']),
+            'role.required_if' => __('validation.required',['attribute', $this->attributes()['role'] ?? 'role']),
             'password.confirmed' => 'Confirmación de contraseña no coincide.',
         ];
     }

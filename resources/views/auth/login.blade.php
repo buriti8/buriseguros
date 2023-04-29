@@ -1,29 +1,23 @@
 @extends('layouts.aig')
 
-@section('title', '| ' . __('auth.login'))
+@section('title', __('auth.login'))
 
 @section('content')
 <div class="login-box">
     <div class="card">
         <div class="card-body login-card-body">
             <div class="mb-3 text-center">
-                <a href="{{route('page.index')}}">
-                    <img src="{{ route('contact.image', 1) }}" alt="Logo">
-                </a>
+                <img src="{{ asset('img/logo.png')}}?{{rand(0, 1000)}}" alt="Logo">
             </div>
+            
+            @include('layouts.message')
+            
             <form role="form" method="POST" action="{{ route('login') }}">
-                {{ csrf_field() }}
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                @if(Session::has('message'))
-                <p class="alert alert-success">{{ Session::get('message') }} </p>
-                @endif
-                @if(Session::has('message_danger'))
-                <p class="alert alert-danger">{{ Session::get('message_danger') }} </p>
-                @endif
+                @csrf
                 <div class="input-group mb-3">
                     <input id="username" type="text"
                         class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" name="username"
-                        value="{{ old('username') }}" placeholder="{{Lang::get('users.username')}}">
+                        value="{{ old('username') }}" placeholder="@lang('users.username')">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <i class="fas fa-user"></i>
@@ -38,7 +32,7 @@
                 <div class="input-group mb-3">
                     <input id="password" type="password"
                         class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password"
-                        placeholder="{{Lang::get('users.password')}}">
+                        placeholder="@lang('users.password')">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <i class="fas fa-lock"></i>
@@ -56,6 +50,11 @@
                     </div>
                 </div>
             </form>
+            <div class="text-center mt-4">
+                <a style="color: #666666 !important;" class="" href="{{ route('password.request') }}">
+                    @lang('base_lang.remember_password')
+                </a>
+            </div>
         </div>
     </div>
 </div>

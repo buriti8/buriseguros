@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\RoleBase;
-use App\User;
-
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -32,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -52,16 +47,25 @@ class LoginController extends Controller
     //Función que valida si el usuario esta activo
     public function login(Request $request)
     {
-        $this->validateLogin($request);
+        $this->validate($request, [
+            'username'    => 'required',
+            'password' => 'required',
+        ]);
 
+        $username = array_values($request->only('username'))[0];
+        $password = array_values($request->only('password'))[0];
+
+        if ($username == '' || $password == '') return;
         $credentials = $this->credentials($request);
+
+        $this->validateLogin($request);
 
         if (Auth::validate($credentials)) {
             $user = Auth::getLastAttempted();
 
             if ($user->active) {
                 Auth::login($user);
-                return redirect('admin/home');
+                return redirect()->intended($this->redirectTo);
             } else {
                 return redirect(route('login'))
                     ->withInput($request->only($this->username(), 'remember'))

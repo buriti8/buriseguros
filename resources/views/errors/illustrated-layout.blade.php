@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <link rel="icon" href="{{asset('img/logo-Buriseguros.png')}}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{asset('img/icon.png')}}" type="image/png" sizes="16x16">
 
     <!-- Styles -->
     <style>
@@ -471,12 +471,20 @@
 
                 <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">
                     @yield('message')
+                    <br>
+                    @yield('error')
                 </p>
 
                 <a href="{{ app('router')->has('home') ? route('home') : url('/') }}">
                     <button
                         class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                         {{ __('Volver al Inicio') }}
+                    </button>
+                </a>
+                <a href="{{ url('logout') }}">
+                    <button
+                        class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
+                        {{ __('Salir') }}
                     </button>
                 </a>
             </div>

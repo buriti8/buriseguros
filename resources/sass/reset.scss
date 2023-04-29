@@ -48,6 +48,12 @@ body {
   margin-right: auto;
 }
 
+.brand-link .brand-image-xs {
+    width: 60%;
+    object-fit: cover;
+    left: 21px;
+}
+
 .bootstrap-datetimepicker-widget.dropdown-menu {
     width: 17rem;
 }
@@ -64,10 +70,6 @@ label {
 .select2-container--default .select2-results__option {
     padding: 1px 12px;
     font-size: 0.875rem;
-}
-
-label:not(.form-check-label):not(.custom-file-label) {
-    font-weight: 400;
 }
 
 span.select2.select2-container.select2-container--default {
@@ -91,6 +93,10 @@ span.select2.select2-container.select2-container--default {
     padding: 0.5125rem 0.5rem;
 }
 
+.logo-xs.brand-image-xl {
+    top: 3px;
+}
+
 .content-header {
     padding: 10px 0.5rem;
 }
@@ -102,6 +108,7 @@ span.select2.select2-container.select2-container--default {
 
 .swal-button--danger:focus {
     background-color: $primary-hover;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(43, 114, 165, 0.29);
 }
 
 .swal-button--danger:active {
@@ -167,7 +174,6 @@ span.select2.select2-container.select2-container--default {
 .ui-autocomplete {
     position: absolute;
     cursor: default;
-    z-index: 3;
 }
 .ui-autocomplete-loading {
     background: white url("images/ui-anim_basic_16x16.gif") right center
@@ -218,15 +224,62 @@ span.select2.select2-container.select2-container--default {
     margin: -1px;
 }
 
-.select2-container--default 
-.select2-results__option--highlighted, 
-.select2-container--default 
-.select2-results__option--highlighted[aria-selected], 
-.select2-container--default 
-.select2-results__option--highlighted[aria-selected]:hover
-{
+.table_collapse a {
+    color: black !important;
+    font-weight: bold;
+}
+
+.table_collapse .table tr {
+    cursor: pointer;
+}
+
+.hiddenRow {
+    padding: 0 4px !important;
+    background-color: #eeeeee;
+    font-size: 13px;
+}
+.accordian-body span {
+    color: #a2a2a2 !important;
+}
+
+.select2-container--default .select2-results__option--highlighted,
+.select2-container--default
+    .select2-results__option--highlighted[aria-selected],
+.select2-container--default
+    .select2-results__option--highlighted[aria-selected]:hover {
     background-color: #9d9d9d;
     color: #fff;
+}
+
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice {
+    background-color: #8d8d8d;
+    border-color: #606060;
+}
+
+.bg-light {
+    background-color: #ececec !important;
+}
+
+.info-box {
+    padding: 0;
+}
+
+.info-box .info-box-content {
+    padding: 0 5px;
+}
+
+.info-box .info-box-icon {
+    width: 45px;
+}
+
+.bg-light {
+    background-color: #6c757d !important;
+}
+
+.bg-light, .bg-light > a {
+    color: #fff !important;
 }
 
 .table-sm td, .table-sm th {
@@ -254,4 +307,10 @@ span.select2.select2-container.select2-container--default {
     table {
         white-space: nowrap!important;
     }
-}   
+}
+
+@media only screen and (max-width: 992px) {
+    .info-box .info-box-icon {
+        font-size: 1.475rem;
+    }
+}

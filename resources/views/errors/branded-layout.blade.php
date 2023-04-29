@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <link rel="icon" href="{{asset('img/logo-Buriseguros.png')}}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{asset('img/icon.png')}}" type="image/png" sizes="16x16">
 
     <!-- Styles -->
     <style>

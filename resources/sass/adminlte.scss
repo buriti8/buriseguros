@@ -2604,7 +2604,7 @@ fieldset:disabled a.btn {
 .show > .btn-primary.dropdown-toggle {
   color: #ffffff;
   background-color: $primary-hover;
-  border-color: #005cbf;
+  border-color: $primary-hover;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -2621,14 +2621,14 @@ fieldset:disabled a.btn {
 
 .btn-secondary:hover {
   color: #ffffff;
-  background-color: #5a6268;
-  border-color: #545b62;
+  background-color: $secondary-hover;
+  border-color: $secondary-hover;
 }
 
 .btn-secondary:focus, .btn-secondary.focus {
   color: #ffffff;
-  background-color: #5a6268;
-  border-color: #545b62;
+  background-color: $secondary-hover;
+  border-color: $secondary-hover;
   box-shadow: none, 0 0 0 0 rgba(130, 138, 145, 0.5);
 }
 
@@ -2641,8 +2641,8 @@ fieldset:disabled a.btn {
 .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active,
 .show > .btn-secondary.dropdown-toggle {
   color: #ffffff;
-  background-color: #545b62;
-  border-color: #4e555b;
+  background-color: $secondary-hover;
+  border-color: $secondary-hover;
 }
 
 .btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus,
@@ -4836,7 +4836,7 @@ input[type="button"].btn-block {
 }
 
 .card-header:first-child {
-  border-radius: calc(0.25rem - 0) calc(0.25rem - 0) 0 0;
+  border-radius: calc(0.25rem - 0rem) calc(0.25rem - 0rem) 0 0;
 }
 
 .card-header + .list-group .list-group-item:first-child {
@@ -4850,7 +4850,7 @@ input[type="button"].btn-block {
 }
 
 .card-footer:last-child {
-  border-radius: 0 0 calc(0.25rem - 0) calc(0.25rem - 0);
+  border-radius: 0 0 calc(0.25rem - 0rem) calc(0.25rem - 0rem);
 }
 
 .card-header-tabs {
@@ -4884,14 +4884,14 @@ input[type="button"].btn-block {
 
 .card-img,
 .card-img-top {
-  border-top-left-radius: calc(0.25rem - 0);
-  border-top-right-radius: calc(0.25rem - 0);
+  border-top-left-radius: calc(0.25rem - 0rem);
+  border-top-right-radius: calc(0.25rem - 0rem);
 }
 
 .card-img,
 .card-img-bottom {
-  border-bottom-right-radius: calc(0.25rem - 0);
-  border-bottom-left-radius: calc(0.25rem - 0);
+  border-bottom-right-radius: calc(0.25rem - 0rem);
+  border-bottom-left-radius: calc(0.25rem - 0rem);
 }
 
 .card-deck .card {
@@ -11744,7 +11744,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 
 .brand-link .brand-image-xl {
   line-height: .8;
-  max-height: 28px;
+  max-height: 40px;
   width: auto;
 }
 
@@ -12822,7 +12822,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 
 .logo-xs.brand-image-xs,
 .logo-xl.brand-image-xs {
-  left: 22px;
+  left: 18px;
   top: 12px;
 }
 
@@ -15955,7 +15955,7 @@ textarea.form-control.is-warning {
 
 .card-secondary:not(.card-outline) > .card-header,
 .card-secondary:not(.card-outline) > .card-header a {
-  color: #ffffff;
+  color: #000000;
 }
 
 .card-secondary:not(.card-outline) > .card-header a.active {
@@ -17980,6 +17980,7 @@ html.maximized-card {
 }
 
 .card-title {
+  color: $white;
   float: left;
   font-size: 1.1rem;
   font-weight: 400;

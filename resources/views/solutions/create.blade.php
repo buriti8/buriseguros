@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', '| ' . __('base_lang.solutions') . ' - ' . __('base_lang.new'))
+@section('title', __('base_lang.solutions') . ' - ' . __('base_lang.new'))
 
 @section('title_page')
 <i class="fas fa-lock"></i>&nbsp;@lang('base_lang.solutions')&nbsp;
@@ -16,7 +16,7 @@
             @permission(['view_solutions', 'all_solutions'])
             <div class="mb-2">
                 <a href="{{ route('solutions.index') }}" class="btn btn-sm btn-primary">
-                    <i class="fas fa-lock"></i>
+                    <i class="fas fa-lg fa-lock"></i>
                     @lang('solutions.view_solutions')
                 </a>
             </div>

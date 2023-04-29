@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', '| ' . __('base_lang.insurances') . ' - ' . __('base_lang.new'))
+@section('title', __('base_lang.insurances') . ' - ' . __('base_lang.new'))
 
 @section('title_page')
 <i class="fas fa-shield-alt"></i>&nbsp;@lang('base_lang.insurances')&nbsp;
@@ -16,7 +16,7 @@
             @permission(['view_insurances', 'all_insurances'])
             <div class="mb-2">
                 <a href="{{ route('insurances.index') }}" class="btn btn-sm btn-primary">
-                    <i class="fas fa-shield-alt"></i>
+                    <i class="fas fa-lg fa-shield-alt"></i>
                     @lang('insurances.view_insurances')
                 </a>
             </div>

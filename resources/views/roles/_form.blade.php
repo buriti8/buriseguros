@@ -1,4 +1,4 @@
-<form class="form-inline" role="form" method="POST" action="{{url('/admin/roles')}}">
+<form class="form-inline" role="form" method="POST" action="{{url('/roles')}}">
     @csrf
     <div class="input-group input-group-sm mb-2 mr-sm-2">
         <div class="input-group-prepend">

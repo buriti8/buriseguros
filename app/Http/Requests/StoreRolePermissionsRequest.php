@@ -24,6 +24,7 @@ class StoreRolePermissionsRequest extends FormRequest
     public function rules()
     {
         $perms = collect(all_permissions());
+
         return $perms->mapWithKeys(function($perm) {
             return [$perm => 'nullable|bool'];
         })->toArray();

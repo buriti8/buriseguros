@@ -32,7 +32,7 @@
 
 .login-box::before {
     content: "";
-    background: url("../img/back.jpg");
+    background: url("../img/back.png?1");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -41,7 +41,7 @@
     bottom: 0;
     right: 0;
     position: absolute;
-    box-shadow: inset 0px 0px 2000px 2000px rgb(0, 0, 0, 0.5);
+    box-shadow: inset 0px 0px 2000px 2000px rgb(0 0 0 / 50%);
 }
 
 .strike-through {
@@ -62,6 +62,22 @@
 .table-striped_td tbody td:nth-of-type(odd) {
     background-color: rgba(0, 0, 0, 0.05);
     font-weight: bold;
+}
+
+.link_attachments {
+    font-size: 45px;
+    color: black;
+}
+
+.content_attachments {
+    width: fit-content;
+    text-align: center;
+}
+
+.table .thead-gray th {
+  color: #fff;
+  background-color: #868585;
+  border-color: #dee2e6;
 }
 
 .img_small {

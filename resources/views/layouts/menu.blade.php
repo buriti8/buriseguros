@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{config('app.name')}} | Admin @yield('title')</title>
-    <link rel="icon" href="{{asset('img/logo.png')}}" type="image/png" sizes="16x16">
+    <title>Admin | {{config('app.name')}} | @yield('title')</title>
+    <link rel="icon" href="{{asset('img/icon.png')}}" type="image/png" sizes="16x16">
     @include('layouts.menu_css')
 </head>
 
-<body class="sidebar-mini sidebar-collapse">
+<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -28,9 +28,9 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar elevation-3 sidebar-light-warning">
             <a href="{{ route('home') }}" class="brand-link logo-switch">
-                <img src="{{ asset('img/logo.png')}}?{{rand(0, 1000)}}" alt="LogoSmall" class="brand-image-xl logo-xs">
-                <img src="{{ asset('img/logo-Buriseguros.png')}}?{{rand(0, 1000)}}" alt="LogoLarge"
-                    class="brand-image-xs logo-xl">
+                <img src="{{ asset('img/mini-logo.png')}}?{{rand(0, 1000)}}" alt="LogoSmall"
+                    class="brand-image-xl logo-xs">
+                <img src="{{ asset('img/logo.png')}}?{{rand(0, 1000)}}" alt="LogoLarge" class="brand-image-xs logo-xl">
             </a>
 
             <!-- Sidebar -->
@@ -42,7 +42,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <p class="mb-0">{{ Auth::user()->name }}</p>
+                        <p class="mb-0">{{ Auth::user()->full_name }}</p>
                     </div>
                 </div>
                 <!-- /.Sidebar user panel -->
@@ -51,6 +51,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+
                         <li class="nav-item">
                             <a href="{{ route('home') }}" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
@@ -60,7 +61,7 @@
                             </a>
                         </li>
 
-                        @if(App\User::isAdmin())
+                        @if(App\Models\User::isAdmin())
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cogs"></i>
@@ -71,32 +72,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/admin/roles') }}" class="nav-link">
+                                    <a href="{{ route('roles.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@lang('base_lang.roles')</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/admin/users') }}" class="nav-link">
+                                    <a href="{{ route('users.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@lang('base_lang.users')</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        @endif
-
-                        @if(App\Http\Validations\Validation::validate('blog'))
-                        @if(App\Http\Validations\Validation::permissionsUser('posts'))
-                        <li class="nav-item">
-                            <a href="{{ route('posts.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-newspaper"></i>
-                                <p>
-                                    @lang('base_lang.posts')
-                                </p>
-                            </a>
-                        </li>
-                        @endif
                         @endif
 
                         @if(App\Http\Validations\Validation::validate('master'))
@@ -109,59 +97,64 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                @if(App\Http\Validations\Validation::permissionsUser('insurers'))
-                                <li class="nav-item">
-                                    <a href="{{ route('insurers.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>@lang('base_lang.insurers')</p>
-                                    </a>
-                                </li>
-                                @endif
-
                                 @if(App\Http\Validations\Validation::permissionsUser('lists'))
                                 <li class="nav-item">
                                     <a href="{{ route('lists.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>
-                                            @lang('base_lang.lists')
-                                        </p>
+                                        <p>@lang('base_lang.lists')</p>
                                     </a>
                                 </li>
                                 @endif
-
-                                @if (App\Http\Validations\Validation::permissionsUser('networks'))
-                                <li class="nav-item">
-                                    <a href="{{ route('networks.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>
-                                            @lang('base_lang.networks')
-                                        </p>
-                                    </a>
-                                </li>
-                                @endif
-
-                                @if (App\Http\Validations\Validation::permissionsUser('solutions'))
-                                <li class="nav-item">
-                                    <a href="{{ route('solutions.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>
-                                            @lang('base_lang.solutions')
-                                        </p>
-                                    </a>
-                                </li>
-                                @endif
-
                             </ul>
                         </li>
                         @endif
 
-                        @if(App\Http\Validations\Validation::validate('contacts'))
-                        @if(App\Http\Validations\Validation::permissionsUser('contacts'))
+                        @if(App\Http\Validations\Validation::validate('information'))
+                        @if(App\Http\Validations\Validation::permissionsUser('information'))
                         <li class="nav-item">
-                            <a href="{{ route('contacts.show', 1) }}" class="nav-link">
+                            <a href="{{ route('information.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-info"></i>
                                 <p>
-                                    @lang('base_lang.contacts')
+                                    @lang('base_lang.information')
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @endif
+
+                        @if(App\Http\Validations\Validation::validate('networks'))
+                        @if(App\Http\Validations\Validation::permissionsUser('networks'))
+                        <li class="nav-item">
+                            <a href="{{ route('networks.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-wifi"></i>
+                                <p>
+                                    @lang('base_lang.networks')
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @endif
+
+                        @if(App\Http\Validations\Validation::validate('insurers'))
+                        @if(App\Http\Validations\Validation::permissionsUser('insurers'))
+                        <li class="nav-item">
+                            <a href="{{ route('insurers.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>
+                                    @lang('base_lang.insurers')
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @endif
+
+                        @if(App\Http\Validations\Validation::validate('solutions'))
+                        @if(App\Http\Validations\Validation::permissionsUser('solutions'))
+                        <li class="nav-item">
+                            <a href="{{ route('solutions.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-lock"></i>
+                                <p>
+                                    @lang('base_lang.solutions')
                                 </p>
                             </a>
                         </li>
@@ -183,7 +176,7 @@
 
                         @if(\Illuminate\Support\Facades\Auth::user()->id === 1)
                         <li class="nav-item">
-                            <a href="{{ url('log-viewer/logs') }}" class="nav-link" target="_blank">
+                            <a href="{{ route('log-viewer::logs.list') }}" class="nav-link" target="_blank">
                                 <i class="nav-icon fa fa-exclamation-triangle"></i>
                                 <p>
                                     @lang('base_lang.log')
@@ -230,7 +223,7 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer text-center">
-            {{-- <img src="{{ asset('img/powered.png')}}?{{rand(0, 1000)}}" alt=""> --}}
+            <img src="{{ asset('img/powered.png')}}?{{rand(0, 1000)}}" alt="">
         </footer>
 
         <!-- Control Sidebar -->

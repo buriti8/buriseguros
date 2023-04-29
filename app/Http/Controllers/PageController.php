@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
+use App\Models\Information;
 use App\Models\Insurance;
 use App\Models\Insurer;
-use App\Models\Network;
-use App\Models\Post;
 use App\Models\Solution;
-use App\PList;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -23,15 +20,13 @@ class PageController extends Controller
         $insurers = Insurer::status()->get();
         $insurances = Insurance::where('id', 2)->orWhere('id', 6)->get();
         $solutions = Solution::status()->orderBy('name', 'DESC')->get();
-        $recent_posts = Post::status()->latest()->take(3)->get();
-        $contact = Contact::findOrFail(1);
+        $information = Information::get()->first();
 
         return view('page.index', [
             'insurers' => $insurers,
             'solutions' => $solutions,
-            'recent_posts' => $recent_posts,
             'insurances' => $insurances,
-            'contact' => $contact,
+            'information' => $information,
         ]);
     }
 

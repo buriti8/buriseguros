@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{$contact->name ?? ''}} @yield('title')</title>
+    <title>{{$information->name ?? ''}} @yield('title')</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/logo.png')}}">
     @include('layouts_page.menu_css')
 </head>
@@ -15,7 +15,7 @@
     <header id="header" class="header fixed-top" data-scrollto-offset="0">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
             <a href="{{route('page.index')}}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-                <img src="{{ route('contact.image', 1) }}?{{rand(0, 1000)}}" alt="Logo">
+                <img src="{{ route('information.image', 1) }}?{{rand(0, 1000)}}" alt="Logo">
             </a>
 
             <nav id="navbar" class="navbar">
@@ -58,7 +58,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-6">
-                        <img src="{{ route('contact.image', 1) }}?{{rand(0, 1000)}}" alt="Logo">
+                        <img src="{{ route('information.image', 1) }}?{{rand(0, 1000)}}" alt="Logo">
                     </div>
 
                     <div class="col-lg-2 col-md-6 footer-links">
@@ -95,10 +95,10 @@
                         <h4>Contáctanos</h4>
                         <div class="footer-info">
                             <p>
-                                {{ $contact->address }} <br />
+                                {{ $information->address }} <br />
                                 Medellín, Colombia<br /><br />
-                                <strong>Celular:</strong> {{$contact->mobile}}<br />
-                                <strong>Email:</strong> {{$contact->email}}<br />
+                                <strong>Celular:</strong> {{$information->mobile}}<br />
+                                <strong>Email:</strong> {{$information->email}}<br />
                             </p>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                 <div class="d-flex flex-column align-items-center align-items-lg-start">
                     <div class="copyright">
                         &copy; Copyright
-                        <strong><span>{{ $contact->name ?? ''}}</span></strong>. Todos los derechos reservados
+                        <strong><span>{{ $information->name ?? ''}}</span></strong>. Todos los derechos reservados
                     </div>
                     <div class="credits">
                         Powered by

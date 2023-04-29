@@ -1,7 +1,7 @@
 @extends('errors::illustrated-layout')
 
 @section('code', '403')
-@section('title', '| ' . __('Prohibido'))
+@section('title', __('Prohibido'))
 
 @section('image')
 <div style="background-image: url({{ asset('/svg/403.svg') }});"
@@ -9,4 +9,5 @@
 </div>
 @endsection
 
-@section('message', __('Lo sentimos, tienes prohibido acceder a esta página.')))
+@section('message', __('Lo sentimos, tienes prohibido acceder a esta página.'))
+@section('error', $exception->getMessage())

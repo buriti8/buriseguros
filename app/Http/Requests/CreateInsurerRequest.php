@@ -24,7 +24,7 @@ class CreateInsurerRequest extends BasicModelRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:191',
+            'name' => 'required|string|max:255',
             'link' => 'required|url',
             'image' => 'required|mimes:png',
             'status' => 'nullable'

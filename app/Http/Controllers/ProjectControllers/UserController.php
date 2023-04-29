@@ -4,23 +4,18 @@ namespace App\Http\Controllers\ProjectControllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\CreateAddressRequest;
 use App\Http\Requests\CreateUserRequest;
-use App\Http\Requests\UpdateAddressRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\RoleBase;
-use App\User;
-
+use App\Models\RoleBase;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-
     /**
      * @param Request $request
      * @return mixed
@@ -28,10 +23,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $search = $request->has('q') ? $request->get('q') ?? [] : get_last_user_search('users', []);
+
         set_last_user_search('users', $search);
 
         $roles = Role::orderBy('name')->get();
-
         $per_page = module_per_page('users', 20);
         $users = User::search($search)->paginate($per_page);
         $users->appends($search + ['per_page' => $per_page]);
@@ -43,41 +38,17 @@ class UserController extends Controller
         ]);
     }
 
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $roles = Role::orderBy('name')->get(['id', 'name'])->except(1);
-
         return view('users.create', [
+            'types' => RoleBase::orderBy('id', 'ASC')->get(['id', 'name']),
             'user' => new User(),
-            'roles' => $roles
+            'roles' => Role::orderBy('name')->get(['id', 'name'])->except(1)
         ]);
-    }
-
-    /**
-     * @param CreateUserRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(CreateUserRequest $request)
-    {
-        try {
-            $user = new User($request->validated());
-
-            if ($user->save()) {
-                $this->saveRoles($user, $request->get('role', []));
-                Session::flash('success', __('users.created', ['name' => $user->full_name]));
-            } else {
-                Session::flash('error', __('users.error', ['name' => $user->full_name, 'action' => 'creado']));
-            }
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::error($e->getMessage());
-            Session::flash('error', __('users.error', ['name' => $user->full_name, 'action' => 'creado']));
-        }
-
-        return redirect()->route('users.index');
     }
 
     public function show(User $user)
@@ -93,13 +64,30 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::orderBy('name')->get(['id', 'name'])->except(1);
-
         return view("users.edit", [
-            'user' => $user,
-            'roles' => $roles
+            "user" => $user,
+            "roles" => Role::orderBy('name')->get(['id', 'name'])->except(1)
         ]);
     }
+
+    /**
+     * @param CreateUserRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(CreateUserRequest $request)
+    {
+        $user = new User($request->validated());
+
+        if ($user->save()) {
+            $this->saveRoles($user, $request->get('role', []));
+            Session::flash('success', __('users.created', ['name' => $user->full_name]));
+        } else {
+            Session::flash('error', __('users.error', ['name' => $user->full_name, 'action' => 'creado']));
+        }
+
+        return redirect('/users');
+    }
+
 
     /**
      * @param User $user
@@ -108,44 +96,14 @@ class UserController extends Controller
      */
     public function update(User $user, UpdateUserRequest $request)
     {
-        try {
-            if ($user->update($request->validated())) {
-                $this->saveRoles($user, $request->get('role', $user->roles()->get()->pluck('id')->toArray() ?? []));
-                Session::flash('success', __('users.updated', ['name' => $user->full_name]));
-            } else {
-                Session::flash('error', __('users.error', ['name' => $user->full_name, 'action' => 'actualizado']));
-            }
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::error($e->getMessage());
+        if ($user->update($request->validated())) {
+            $this->saveRoles($user, $request->get('role', $user->roles()->get()->pluck('id')->toArray() ?? []));
+            Session::flash('success', __('users.updated', ['name' => $user->full_name]));
+        } else {
             Session::flash('error', __('users.error', ['name' => $user->full_name, 'action' => 'actualizado']));
         }
 
-        return redirect()->route('users.index');
-    }
-
-    /**
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Exception
-     */
-    public function destroy(User $user)
-    {
-        try {
-            DB::beginTransaction();
-            if ($user->parentModule ?? null) {
-                $user->parentModule->delete();
-            }
-
-            $user->delete();
-            Session::flash('success', __('users.deleted', ['name' => $user->full_name]));
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Session::flash('error', __('users.failed', ['name' => $user->full_name]));
-        }
-
-        return redirect()->route('users.index');
+        return redirect('/users');
     }
 
     /**
@@ -158,12 +116,29 @@ class UserController extends Controller
     }
 
     /**
+     * @return mixed
+     */
+    public function changeMyPassword()
+    {
+        return $this->changePassword(Auth::user())->with('check_current', true);
+    }
+
+    /**
      * @param User $user
      * @return mixed
      */
     public function changePassword(User $user)
     {
-        return view("users.change_password")->with("user", $user);
+        return view("users.edit_password")->with("user", $user);
+    }
+
+    /**
+     * @param ChangePasswordRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function updateMyPassword(ChangePasswordRequest $request)
+    {
+        return $this->updatePassword(Auth::user(), $request);
     }
 
     /**
@@ -174,9 +149,35 @@ class UserController extends Controller
     public function updatePassword(User $user, ChangePasswordRequest $request)
     {
         if ($user->update(['password' => $request->get("password")])) {
-            Session::flash('success', __('users.updated', ['name' => $user->name]));
+            Session::flash('success', __('users.updated', ['name' => $user->full_name]));
         }
 
-        return redirect()->route('users.index');
+        return redirect('/users');
+    }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
+     */
+    public function destroy(User $user)
+    {
+        try {
+            DB::beginTransaction();
+
+            if ($user->parentModule ?? null) {
+                $user->parentModule->delete();
+            }
+
+            $user->delete();
+            Session::flash('success', __('users.deleted', ['name' => $user->full_name]));
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Session::flash('error', __('users.failed', ['name' => $user->full_name]));
+        }
+
+        return redirect('/users');
     }
 }

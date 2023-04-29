@@ -1,6 +1,13 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
+@font-face {
+    font-family: "RenaultLife-Regular";
+	src: url('../fonts/RenaultLife-Regular.ttf');
+	font-weight: normal;
+	font-style: normal;	
+}
+
 //Bootstrap
 @import "~bootstrap/scss/bootstrap";
 @import "~pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.min.css";

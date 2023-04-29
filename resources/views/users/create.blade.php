@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', '| ' . __('base_lang.users') . ' - ' . __('base_lang.new'))
+@section('title', __('base_lang.users') . ' - ' . __('users.new'))
 
 @section('title_page')
 <i class="fa fa-users"></i>&nbsp;@lang('base_lang.users')&nbsp;
@@ -13,19 +13,19 @@
     <div class="row d-flex justify-content-center">
         <div class="col-12">
             <div class="mb-2">
-                <a href="{{ route('users.index') }}" class="btn btn-sm btn-primary ">
+                <a href="{{ url('/users') }}" class="btn btn-sm btn-primary ">
                     <i class="fa fa-lg fa-fw fa-users"></i>
                     @lang('users.view_user')
                 </a>
-                <a href="{{ route('roles.index') }}" class="btn btn-sm btn-primary ">
-                    <i class="fas fa-tags"></i>&nbsp;@lang('users.view_roles')
+                <a href="{{ url('/roles') }}" class="btn btn-sm btn-primary ">
+                    <i class="fa fa-lg fa-fw fa-crosshairs "></i>&nbsp;@lang('users.view_roles')
                 </a>
             </div>
 
             <div class="panel panel-default">
                 <div class="panel-body body_form">
                     <div class="card card-secondary mb-2">
-                        @include('users._form')
+                        @include('users.form')
                     </div>
                 </div>
             </div>

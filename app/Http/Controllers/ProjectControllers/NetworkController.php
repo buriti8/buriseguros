@@ -20,12 +20,14 @@ class NetworkController extends Controller
      */
     public function index(Request $request)
     {
-        $search = [];
-
         if ($request->has('q')) {
-            $search = $request->get('q', []);
+            $search = $request->has('q') ? $request->get('q') : [];
         } else {
-            $search = get_last_user_search('networks', []);
+            if ($request->has('page')) {
+                $search = get_last_user_search('networks', []);
+            } else {
+                $search = [];
+            }
         }
 
         set_last_user_search('networks', $search);
@@ -45,10 +47,10 @@ class NetworkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Network $networks)
+    public function create(Network $network)
     {
         return view("networks.create", [
-            'networks' => $networks,
+            'network' => $network,
         ]);
     }
 
@@ -63,21 +65,23 @@ class NetworkController extends Controller
         try {
             DB::beginTransaction();
 
-            $networks = new Network($request->validated());
+            $network = new Network($request->validated());
 
-            if ($networks->save()) {
-                Session::flash('success', __('networks.created', ['name' => $networks->name]));
+            if ($network->save()) {
+                Session::flash('success', __('networks.created', ['name' => $network->name]));
                 DB::commit();
-            } else {
-                Session::flash('error', __('networks.error', ['name' => $networks->name, 'action' => 'crear']));
-                DB::rollBack();
             }
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            Session::flash('error', __('networks.error', ['name' => $network->name, 'action' => 'crear']));
         }
 
-        return redirect()->route('networks.index');
+        if ($network) {
+            return redirect()->route('networks.show', $network->id);
+        } else {
+            return redirect()->route('networks.index');
+        }
     }
 
     /**
@@ -88,7 +92,11 @@ class NetworkController extends Controller
      */
     public function show($id)
     {
-        //
+        $network = Network::findOrFail($id);
+
+        return view('networks.detail', [
+            'network' => $network,
+        ]);
     }
 
     /**
@@ -99,10 +107,10 @@ class NetworkController extends Controller
      */
     public function edit($id)
     {
-        $networks = Network::findOrFail($id);
+        $network = Network::findOrFail($id);
 
         return view("networks.edit", [
-            'networks' => $networks,
+            'network' => $network,
         ]);
     }
 
@@ -118,21 +126,23 @@ class NetworkController extends Controller
         try {
             DB::beginTransaction();
 
-            $networks = Network::findOrFail($id);
+            $network = Network::findOrFail($id);
 
-            if ($networks->update($request->validated())) {
-                Session::flash('success', __('networks.updated', ['name' => $networks->name]));
+            if ($network->update($request->validated())) {
+                Session::flash('success', __('networks.updated', ['name' => $network->name]));
                 DB::commit();
-            } else {
-                Session::flash('error', __('networks.error', ['name' => $networks->name, 'action' => 'actualizar']));
-                DB::rollBack();
             }
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            Session::flash('error', __('networks.error', ['name' => $network->name, 'action' => 'actualizar']));
         }
 
-        return redirect()->route('networks.index');
+        if ($network->wasChanged('status')) {
+            return redirect()->route('networks.index');
+        }
+
+        return redirect()->route('networks.show', $network->id);
     }
 
     /**
@@ -143,14 +153,14 @@ class NetworkController extends Controller
      */
     public function destroy($id)
     {
-        $networks = Network::findOrFail($id);
+        $network = Network::findOrFail($id);
 
         try {
-            $networks->delete();
-            Session::flash('success', __('networks.deleted', ['name' => $networks->name]));
+            $network->delete();
+            Session::flash('success', __('networks.deleted', ['name' => $network->name]));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            Session::flash('error', __('networks.delete_error', ['name' => $networks->name]));
+            Session::flash('error', __('networks.error', ['name' => $network->name]));
         }
 
         return redirect()->route('networks.index');

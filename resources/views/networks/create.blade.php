@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 
-@section('title', '| ' . __('base_lang.networks') . ' - ' . __('base_lang.new'))
+@section('title', __('base_lang.networks') . ' - ' . __('base_lang.new'))
 
 @section('title_page')
 <i class="fas fa-wifi"></i>&nbsp;@lang('base_lang.networks')&nbsp;
@@ -16,7 +16,7 @@
             @permission(['view_networks', 'all_networks'])
             <div class="mb-2">
                 <a href="{{ route('networks.index') }}" class="btn btn-sm btn-primary">
-                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-lg fa-wifi"></i>
                     @lang('networks.view_networks')
                 </a>
             </div>

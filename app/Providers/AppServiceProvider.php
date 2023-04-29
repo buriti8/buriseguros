@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
-use App\Integration\SuiteCRM\SuiteCrmIntegrationProvider;
-use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,7 +26,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        Paginator::useBootstrap();
+
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
 
         Blade::if('permission', function (array $permissions) {
             return validatePermission($permissions);

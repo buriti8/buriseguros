@@ -5,11 +5,9 @@ namespace App\Http\Controllers\ProjectControllers;
 use App\Http\Requests\UpdateListRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\CreateListRequest;
-use App\PList;
-use Illuminate\Support\Facades\Lang;
+use App\Models\Plist;
 
 class ListController extends Controller
 {
@@ -18,37 +16,40 @@ class ListController extends Controller
      * @param PList|null $list
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, ?PList $list = null)
+    public function index(Request $request)
     {
         if ($request->has('q')) {
-            $search = $request->get('q', []);
+            $search = $request->has('q') ? $request->get('q') : [];
         } else {
-            $search = get_last_user_search('lists', []);
+            if ($request->has('page')) {
+                $search = get_last_user_search('lists', []);
+            } else {
+                $search = [];
+            }
         }
 
         set_last_user_search('lists', $search);
 
         $per_page = module_per_page('lists', 20);
-        $lists_options = validatePermission(['edit_lists', 'all_lists']) ? PList::search($search)->paginate($per_page) : PList::search($search)->status()->paginate($per_page);
-        $lists_options->appends('per_page', $per_page);
+        $lists_options = Plist::search($search)->paginate($per_page);
+        $lists_options->appends($search + ['per_page' => $per_page]);
 
         return view("lists.index", [
-            "lists" => config('lists.lists', []),
             "lists_options" => $lists_options,
-            "list" => $list,
             'search' => $search,
-            'protected' => config('lists.protected', [])
-        ]);
+        ] + Plist::getArrayList());
     }
 
     /**
-     * @param PList $list
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function edit(PList $list, Request $request)
+    public function create(PList $list)
     {
-        return $this->index($request, $list);
+        return view("lists.create", [
+            
+        ] + Plist::getArrayList());
     }
 
     /**
@@ -67,7 +68,22 @@ class ListController extends Controller
             Session::flash('error', __('lists.created', ['name' => $option->option]));
         }
 
-        return redirect()->route('lists.index');
+        return redirect('/lists');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $list = PList::findOrFail($id);
+
+        return view("lists.edit", [
+            'list' => $list,
+        ] + Plist::getArrayList());
     }
 
     /**
@@ -79,13 +95,13 @@ class ListController extends Controller
     {
         $option = PList::findOrFail($id);
         $option->fill($request->validated());
-        
+
         if ($option->save()) {
             Session::flash('success', __('lists.updated', ['name' => $option->option]));
         } else {
             Session::flash('error', __('lists.updated', ['name' => $option->option]));
         }
 
-        return redirect()->route('lists.index');
+        return redirect('/lists');
     }
 }

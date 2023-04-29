@@ -1,46 +1,44 @@
 @extends('layouts.aig')
 
-@section('title', '| ' . __('users.reset_password'))
+@section('title', __('users.reset_password'))
 
 @section('content')
-<div class="login-box">
-    <div class="card">
-        <div class="card-body login-card-body">
-            <span>
-                <h1 class="login-box-msg text-uppercase"><strong>Buriseguros</strong></h1>
-            </span>
-            <form role="form" method="POST" action="{{ route('password.email') }}">
-                @csrf
-                @if(Session::has('message'))
-                <p class="alert alert-success">{{ Session::get('message') }} </p>
-                @endif
-                @if(Session::has('message_danger'))
-                <p class="alert alert-danger">{{ Session::get('message_danger') }} </p>
-                @endif
-                <div class="input-group mb-3">
-                    <input id="email" type="text" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                        name="email" value="{{ old('email') }}" placeholder="@lang('users.email')">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-                    @if($errors->has('email'))
-                    <span class="invalid-feedback">
+<div class="login-container">
+    <div class="section_login">
+        <form role="form" method="POST" action="{{ route('password.email') }}" class="smart-form client-form">
+            @csrf
+            <header>
+                <span> <img class="login_img" src="{{ asset('img/login_head.png') }}" alt=""></span>
+            </header>
+
+            <fieldset>
+                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    <label class="label">@lang('users.remember')</label>
+                    <label class="input"> <i class="icon-prepend fa fa-envelope"></i>
+                        <input id="email" type="text" name="email" value="{{ old('email') }}"
+                            placeholder="*@lang('users.email')">
+                        <b class="tooltip tooltip-top-left">
+                            <i class="fa fa-envelope txt-color-teal"></i>
+                            @lang('base_lang.email')
+                        </b>
+                    </label>
+                    @if ($errors->has('email'))
+                    <span class="help-block">
                         <strong>{{ $errors->first('email') }}</strong>
                     </span>
                     @endif
                 </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-sm btn-primary mb-1">@lang('users.reset_password')</button>
-                        <a href="{{url('/login')}}" class="btn btn-sm btn-primary mb-1">
-                            @lang('base_lang.cancel')
-                        </a>
-                    </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mb-3">
+                        @lang('users.reset_password')
+                    </button>
+                    <a class="btn btn-primary mb-3" href="{{ url('login') }}">
+                        @lang('base_lang.cancel')
+                    </a>
                 </div>
-            </form>
-        </div>
+            </fieldset>
+        </form>
     </div>
 </div>
 

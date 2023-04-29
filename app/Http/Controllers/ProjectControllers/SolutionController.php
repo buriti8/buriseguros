@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class SolutionController extends Controller
 {
@@ -20,12 +21,14 @@ class SolutionController extends Controller
      */
     public function index(Request $request)
     {
-        $search = [];
-
         if ($request->has('q')) {
-            $search = $request->get('q', []);
+            $search = $request->has('q') ? $request->get('q') : [];
         } else {
-            $search = get_last_user_search('solutions', []);
+            if ($request->has('page')) {
+                $search = get_last_user_search('solutions', []);
+            } else {
+                $search = [];
+            }
         }
 
         set_last_user_search('solutions', $search);
@@ -45,10 +48,10 @@ class SolutionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Solution $solutions)
+    public function create(Solution $solution)
     {
         return view("solutions.create", [
-            'solutions' => $solutions,
+            'solution' => $solution,
         ]);
     }
 
@@ -63,21 +66,23 @@ class SolutionController extends Controller
         try {
             DB::beginTransaction();
 
-            $solutions = new Solution($request->validated());
+            $solution = new Solution($request->validated());
 
-            if ($solutions->save()) {
-                Session::flash('success', __('solutions.created', ['name' => $solutions->name]));
+            if ($solution->save()) {
+                Session::flash('success', __('solutions.created', ['name' => $solution->name]));
                 DB::commit();
-            } else {
-                Session::flash('error', __('solutions.error', ['name' => $solutions->name, 'action' => 'crear']));
-                DB::rollBack();
             }
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            Session::flash('error', __('solutions.error', ['name' => $solution->name, 'action' => 'crear']));
         }
 
-        return redirect()->route('solutions.index');
+        if ($solution) {
+            return redirect()->route('solutions.show', $solution->id);
+        } else {
+            return redirect()->route('solutions.index');
+        }
     }
 
     /**
@@ -88,7 +93,11 @@ class SolutionController extends Controller
      */
     public function show($id)
     {
-        //
+        $solution = Solution::findOrFail($id);
+
+        return view('solutions.detail', [
+            'solution' => $solution,
+        ]);
     }
 
     /**
@@ -99,10 +108,10 @@ class SolutionController extends Controller
      */
     public function edit($id)
     {
-        $solutions = Solution::findOrFail($id);
+        $solution = Solution::findOrFail($id);
 
         return view("solutions.edit", [
-            'solutions' => $solutions,
+            'solution' => $solution,
         ]);
     }
 
@@ -118,21 +127,23 @@ class SolutionController extends Controller
         try {
             DB::beginTransaction();
 
-            $solutions = Solution::findOrFail($id);
+            $solution = Solution::findOrFail($id);
 
-            if ($solutions->update($request->validated())) {
-                Session::flash('success', __('solutions.updated', ['name' => $solutions->name]));
+            if ($solution->update($request->validated())) {
+                Session::flash('success', __('solutions.updated', ['name' => $solution->name]));
                 DB::commit();
-            } else {
-                Session::flash('error', __('solutions.error', ['name' => $solutions->name, 'action' => 'actualizar']));
-                DB::rollBack();
             }
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            Session::flash('error', __('solutions.error', ['name' => $solution->name, 'action' => 'actualizar']));
         }
 
-        return redirect()->route('solutions.index');
+        if ($solution->wasChanged('status')) {
+            return redirect()->route('solutions.index');
+        }
+
+        return redirect()->route('solutions.show', $solution->id);
     }
 
     /**
@@ -143,14 +154,14 @@ class SolutionController extends Controller
      */
     public function destroy($id)
     {
-        $solutions = Solution::findOrFail($id);
+        $solution = Solution::findOrFail($id);
 
         try {
-            $solutions->delete();
-            Session::flash('success', __('solutions.deleted', ['name' => $solutions->name]));
+            $solution->delete();
+            Session::flash('success', __('solutions.deleted', ['name' => $solution->name]));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            Session::flash('error', __('solutions.delete_error', ['name' => $solutions->name]));
+            Session::flash('error', __('solutions.error', ['name' => $solution->name]));
         }
 
         return redirect()->route('solutions.index');
@@ -159,7 +170,7 @@ class SolutionController extends Controller
     public function getImage(Solution $solution)
     {
         if ($solution->image) {
-            $img = \Image::make(storage_path("app/" . $solution->image))->resize(500, null, function ($constraint) {
+            $img = Image::make(storage_path("app/" . $solution->image))->resize(500, null, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });
@@ -176,10 +187,12 @@ class SolutionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function page(Solution $solution)
+    public function page()
     {
+        $solutions = Solution::status()->get();
+
         return view('solutions.page.detail', [
-            'solution' => $solution,
+            'solutions' => $solutions,
         ]);
     }
 }

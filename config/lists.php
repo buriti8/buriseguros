@@ -2,13 +2,13 @@
 
 return [
     'lists' => [
-        'categories' => 'Categorías',
+        'document_types' => 'Tipos de documento',
     ],
     'default' => [
-        'categories' => [
-            'ARL',
+        'document_types' => [
+            'Cédula de ciudadanía',
+            'NIT',
         ],
     ],
-
     'protected' => []
 ];

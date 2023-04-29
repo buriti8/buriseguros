@@ -24,7 +24,7 @@ class UpdateInsurerRequest extends BasicModelRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|required|string|max:191',
+            'name' => 'sometimes|required|string|max:255',
             'link' => 'sometimes|required|url',
             'image' => 'sometimes|required|mimes:png',
             'status' => 'sometimes|nullable'

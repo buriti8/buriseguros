@@ -1,15 +1,12 @@
 <?php
 
 use App\Http\Validations\Validation;
-use App\User;
-
+use App\Models\User;
+use App\Models\Plist;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use App\Attributes;
-use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
 
 /**
@@ -255,6 +252,25 @@ function abort_if_no_permission($modules, $permissions)
     }
 }
 
+/**
+ * @param $option_consult
+ * @param $list_consult
+ * @return int
+ */
+function getList($option_consult, $list_consult): int
+{
+    $list = PList::where('option', $option_consult)->pluck('id')->first();
+
+    if (!$list) {
+        $option = new PList();
+        $option->list = $list_consult;
+        $option->option_key = $option_consult;
+        $option->option = $option_consult;
+        $option->save();
+    }
+    return $list ?? $option->id;
+}
+
 function pagination($data, $perPorPage)
 {
     $register = Collection::make($data);
@@ -266,6 +282,21 @@ function pagination($data, $perPorPage)
         'path' => Paginator::resolveCurrentPath(),
         'pageName' => $pageName,
     ]);
+}
+
+/**
+ * @param array $addresses
+ * @param string $separator
+ * @return string
+ */
+function map_email_addresses(array $addresses, $separator = ';'): string
+{
+    return collect($addresses)->map(function ($address) {
+        if ($address['name'] ?? null) {
+            return $address['name'] . '<' . $address['address'] . '>';
+        }
+        return $address['address'];
+    })->implode($separator);
 }
 
 /**
@@ -318,6 +349,7 @@ function cleanAccents($string)
 {
     $accents = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "À", "Ã", "Ì", "Ò", "Ù", "Ã™", "Ã ", "Ã¨", "Ã¬", "Ã²", "Ã¹", "ç", "Ç", "Ã¢", "ê", "Ã®", "Ã´", "Ã»", "Ã‚", "ÃŠ", "ÃŽ", "Ã”", "Ã›", "ü", "Ã¶", "Ã–", "Ã¯", "Ã¤", "«", "Ò", "Ã", "Ã„", "Ã‹");
     $clean = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N", "A", "E", "I", "O", "U", "a", "e", "i", "o", "u", "c", "C", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "u", "o", "O", "i", "a", "e", "U", "I", "A", "E");
+
     return str_replace($accents, $clean, $string);
 }
 
@@ -333,7 +365,7 @@ function getYears($birthday)
  */
 function getCurrentDate(?string $date = '')
 {
-    $months = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+    $months = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
 
     if ($date == '') {
         $date = Carbon::now();
@@ -343,7 +375,7 @@ function getCurrentDate(?string $date = '')
 
     $month = $months[($date->format('n')) - 1];
 
-    return $date->format('d') . ' ' . $month . ', ' . $date->format('Y');
+    return $date->format('d') . ' de ' . $month . ' de ' . $date->format('Y');
 }
 
 function getHour(?string $date = '')
@@ -355,4 +387,55 @@ function getHour(?string $date = '')
     }
 
     return $date->format('H:i') ?? '';
+}
+
+function getDatesCertificate(?string $date = '')
+{
+    $months = [
+        "enero",
+        "febrero",
+        "marzo",
+        "abril",
+        "mayo",
+        "junio",
+        "julio",
+        "agosto",
+        "septiembre",
+        "octubre",
+        "noviembre",
+        "diciembre",
+    ];
+
+    if ($date == '') {
+        return 'xxx';
+    } else if (gettype($date) == 'string') {
+        $date = Carbon::parse($date);
+    }
+
+    $month = $months[($date->format('n')) - 1];
+
+    return $date->format('d') . ' de ' . $month . ' de ' . $date->format('Y');
+}
+
+/*
+ * Obtener mes. Formato: 06 - Junio 
+ */
+function getMonth($num_month = null)
+{
+    $months = [
+        "01" => "01 - Enero",
+        "02" => "02 - Febrero",
+        "03" => "03 - Marzo",
+        "04" => "04 - Abril",
+        "05" => "05 - Mayo",
+        "06" => "06 - Junio",
+        "07" => "07 - Julio",
+        "08" => "08 - Agosto",
+        "09" => "09 - Septiembre",
+        "10" => "10 - Octubre",
+        "11" => "11 - Noviembre",
+        "12" => "12 - Diciembre",
+    ];
+
+    return $num_month ? $months[$num_month] : '';
 }

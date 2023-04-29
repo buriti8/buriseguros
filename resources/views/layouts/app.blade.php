@@ -9,8 +9,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{config('app.name')}} @yield('title')</title>
-    <link rel="icon" href="{{asset('img/logo.png')}}" type="image/png" sizes="16x16">
+    <title>{{config('app.name')}} | @yield('title')</title>
+    <link rel="icon" href="{{asset('img/icon.png')}}" type="image/png" sizes="16x16">
     <link href="{{ url(mix('css/app.css')) }}" rel="stylesheet">
 
     @include('layouts.menu_css')

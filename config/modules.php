@@ -5,10 +5,10 @@ return [
         'lists' => 'Listas Desplegables',
         'insurers' => 'Aseguradoras',
         'networks' => 'Redes Sociales',
-        'solutions' => 'Seguros',
+        'solutions' => 'Soluciones',
         'insurances' => 'Seguros',
         'posts' => 'Blog Posts',
-        'contacts' => 'Información de Contacto',
+        'information' => 'Información de Contacto',
     ],
 
     'base_permissions' => [
@@ -26,6 +26,5 @@ return [
         'edit' => 'Editar',
     ],
 
-    'permission_has_role' => []
-
+    'permission_has_role' => [],
 ];

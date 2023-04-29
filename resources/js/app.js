@@ -6,7 +6,13 @@ import * as utils from "./utils";
 
 $(function () {
     //Initialize Select2 Elements
-    $(".select2").select2();
+    $(".select2").select2({
+        language: {
+            noResults: function () {
+                return "No se encontraron resultados";
+            }
+        }
+    });
 
     //Initialize Select2 Elements
     $(".select2bs4").select2({
@@ -36,40 +42,6 @@ $(".btn-inactive").click(ev => {
             ev.currentTarget.form.submit();
         }
     });
-});
-
-$('#output_weight').keyup((e) => {
-    let btn = $('#btn_output_weight');
-    if($(e.currentTarget).val() == ''){
-        console.log('Desabiliraer');
-        btn.prop("disabled", 'disabled');
-    } else {
-        btn.prop("disabled", false);
-    }
-});
-
-$('#frm_output_weight').submit((ev) => {
-    ev.preventDefault();
-    ev.currentTarget.submit();
-});
-
-$(".btn-exit").click(ev => {
-    let vehicle_id = $(ev.currentTarget).data('vehicle');
-    let register_id = $(ev.currentTarget).data('register_id');
-    
-    if (vehicle_id != 1 && vehicle_id != 2 && vehicle_id != 6) {
-        let modal = $('#modal_output_weight');
-        var url_action = $('#frm_output_weight').prop('action');
-        url_action = url_action.replace('$id$', register_id);
-        $('#frm_output_weight').prop('action', url_action);
-        modal.modal();
-    } else {
-        utils.confirmExit().then(result => {
-            if (result) {
-                ev.currentTarget.form.submit();
-            }
-        });
-    }
 });
 
 $(".upper").bind("input", function () {

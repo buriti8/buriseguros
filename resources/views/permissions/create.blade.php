@@ -1,10 +1,10 @@
 @extends('layouts.menu')
 
-@section('title', '| ' . __('users.permissions'))
+@section('title', __('users.permissions'))
 
 @section('title_page')
-<i class="fas fa-key"></i>&nbsp;@lang('users.permissions')
-<i class="fas fa-caret-right pl-1 pr-1"></i> {{$role->name}}
+<i class="fa fa-crosshairs"></i>&nbsp;@lang('users.permissions')
+<i class="fas fa-caret-right pl-1 pr-1"></i> {{ucwords(mb_strtolower($role->name))}}
 @endsection
 
 @section('content_page')
@@ -14,14 +14,14 @@
         <div class="col col-12">@include('layouts.message')</div>
         <div class="col-md-12">
             <div class="pb-3">
-                <a href="{{ route('roles.index') }}" class="btn btn-sm btn-primary ">
-                    <i class="fas fa-tags"></i>&nbsp;@lang('users.view_roles')
-                </a>
-                <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">
+                <a href="{{ url('/users/create') }}" class="btn btn-sm btn-primary">
                     <i class="fa fa-lg fa-fw fa-plus"></i>&nbsp;@lang('users.new_user')
                 </a>
-                <a href="{{ route('users.index') }}" class="btn btn-sm btn-primary">
+                <a href="{{ url('users') }}" class="btn btn-sm btn-primary">
                     <i class="fa fa-lg fa-fw fa-users"></i>&nbsp;@lang('users.view_user')
+                </a>
+                <a href="{{ url('/roles') }}" class="btn btn-sm btn-primary "><i
+                        class="fa fa-lg fa-fw fa-crosshairs "></i>&nbsp;@lang('users.view_roles')
                 </a>
             </div>
             <div class="panel panel-default">
@@ -30,15 +30,18 @@
                         <div class="card-header py-1 px-2">
                             <h3 class="card-title">@lang('base_lang.permission_by_modules')</h3>
                         </div>
-                        <form class="form-horizontal" role="form" method="POST"
-                            action="{{url("/admin/roles/{$role->id}/permissions")}}" id='save_form'>
+                        <form class="form-horizontal" role="form" method="POST" action="{{url("/roles/{$role->
+                            id}/permissions")}}" id='save_form'>
                             @csrf
                             <div class="row">
                                 <section class="col col-12">
                                     <div class="table-responsive">
-                                        <table class="table table-sm table-bordered table-striped text-nowrap">
+                                        <table class="table table-sm table-bordered table-striped">
                                             <tr class="background_color">
-                                                <th style="text-align: center">{{Lang::get('base_lang.module')}}</th>
+                                                <th style="text-align: center">
+                                                    @lang('base_lang.module')
+                                                </th>
+
                                                 @foreach($permissions as $perm =>$p)
                                                 <th style="text-align: center">{{ $p }}</th>
                                                 @endforeach
@@ -46,6 +49,7 @@
                                             @foreach($modules as $mod =>$m)
                                             <tr role="row" class="odd" id="">
                                                 <td>{{ $m }}</td>
+
                                                 @foreach($permissions as $perm =>$p)
                                                 <?php $name_permission = $perm . '_' . $mod; ?>
                                                 <td style="text-align: center">
@@ -65,9 +69,9 @@
                                 <div class="col col-12 text-right">
                                     <section class="col col-12">
                                         <button type="submit" class="btn btn-sm btn-primary">
-                                            {{Lang::get('base_lang.save')}}
+                                            @lang('base_lang.save')
                                         </button>
-                                        <a href="{{ url('roles.index') }}"
+                                        <a href="{{ url('/roles') }}"
                                             class="btn btn-sm btn-primary">@lang('base_lang.cancel')</a>
                                     </section>
                                 </div>

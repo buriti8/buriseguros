@@ -1,19 +1,20 @@
-<form role="form" method="POST" action="{{ url('/admin/solutions' . ($solutions->id ? "/{$solutions->id}" : '')) }}"
+<form role="form" method="POST"
+    action="{{ ($solution->id ? route('solutions.update', $solution->id) : route('solutions.store', $solution->id)) }}"
     enctype="multipart/form-data">
     @csrf
-    @if($solutions->id)
+    @if($solution->id)
     @method('put')
     @endif
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12 col-md-4">
                 <label>*@lang('solutions.name')</label>
                 <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-lock"></i></div>
                     </div>
                     <input id="name" type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
-                        name="name" value="{{ old('name', $solutions->name ?? '') }}"
+                        name="name" value="{{ old('name', $solution->name ?? '') }}"
                         placeholder="@lang('solutions.name')">
                     @if($errors->has('name'))
                     <span class="invalid-feedback">
@@ -22,7 +23,8 @@
                     @endif
                 </div>
             </div>
-            <div class="col-sm-6">
+
+            <div class="col-sm-12 col-md-4">
                 <label>*@lang('solutions.image')</label>
                 <div class="form-group">
                     <div class="custom-file">
@@ -37,15 +39,16 @@
                         </span>
                         @endif
                     </div>
-                    <small class="form-text">@lang('base_lang.image_rules_jpg')</small>
+                    <small class="form-text">@lang('base_lang.image_rules')</small>
                 </div>
             </div>
+
             <div class="col-sm-12">
                 <label>@lang('solutions.description')</label>
                 <div class="input-group input-group-sm mb-2">
                     <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
                         name="description" placeholder="@lang('solutions.description')"
-                        rows="3">{{ old('description', $solutions->description ?? '') }}</textarea>
+                        rows="3">{{ old('description', $solution->description ?? '') }}</textarea>
                     @if($errors->has('description'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('description') }}</strong>

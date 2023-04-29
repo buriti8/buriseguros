@@ -2,17 +2,18 @@
 
 return [
     //Actions
-    'created' => 'La seguro :name ha sido creada con éxito.',
-    'updated' => 'La seguro :name  ha sido actualizada con éxito.',
-    'deleted' => 'La seguro :name  ha sido eliminada con éxito.',
-    'failed' => 'Error al :action de la seguro',
+    'created' => 'La solución :name ha sido creada con éxito.',
+    'updated' => 'La solución :name  ha sido actualizada con éxito.',
+    'deleted' => 'La solución :name  ha sido eliminada con éxito.',
+    'error' => 'Error al :action de la solución',
+
+    //Actions button
+    'new_solution' => 'Nueva Solución',
+    'view_solutions' => 'Ver Soluciones',
+    'edit_solution' => 'Editar Solución',
 
     //Tags
     'name' => 'Nombre',
     'image' => 'Imagen',
     'description' => 'Descripción',
-
-    //Tags
-    'new_solution' => 'Nueva Seguro',
-    'view_solutions' => 'Ver Seguros',
 ];

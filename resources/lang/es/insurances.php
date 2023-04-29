@@ -5,18 +5,22 @@ return [
     'created' => 'El seguro :name ha sido creado con éxito.',
     'updated' => 'El seguro :name  ha sido actualizado con éxito.',
     'deleted' => 'El seguro :name  ha sido eliminado con éxito.',
-    'failed' => 'Error al :action del seguro',
+    'error' => 'Error al :action del seguro',
+
+    //Actions button
+    'new_insurance' => 'Nuevo Seguro',
+    'view_insurances' => 'Ver Seguros',
+    'edit_insurance' => 'Editar Seguro',
 
     //Tags
     'name' => 'Nombre',
     'description' => 'Descripción',
+    'pre_content' => 'Pre Contenido',
     'content' => 'Contenido',
     'image' => 'Imagen',
     'icon' => 'Ícono',
-    'solution_id' => 'Seguro',
+    'solution_id' => 'Solución',
 
-    //Tags
-    'new_insurance' => 'Nuevo Seguro',
-    'view_insurances' => 'Ver Seguros',
-    'select_solution' => 'Seleccionar seguro',
+    //Select tags
+    'select_solution' => 'Seleccionar solución',
 ];

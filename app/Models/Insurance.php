@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use App\Traits\CustomAttributesTrait;
+use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Insurance extends Model
+class Insurance extends Model implements Auditable
 {
-    use CustomAttributesTrait;
+    use CustomAttributesTrait, SoftDeletes, CreatedUpdatedBy;
+    use \OwenIt\Auditing\Auditable;
 
     protected $table = 'insurances';
     protected $perPage = 20;
@@ -18,7 +22,6 @@ class Insurance extends Model
      *
      * @var array
      */
-
     protected $fillable = [
         'name',
         'slug',
@@ -56,11 +59,6 @@ class Insurance extends Model
                         $builder->where('name', "like", "%{$value}%");
                     }
                     break;
-                case 'solution_id':
-                    if ($value) {
-                        $builder->where('solution_id', $value);
-                    }
-                    break;
                 case 'status':
                     if ($value !== null) {
                         $builder->where('status', $value);
@@ -71,7 +69,7 @@ class Insurance extends Model
         return $builder->orderBy('name', 'ASC');
     }
 
-    /**
+        /**
      * @param Builder $builder
      */
     public function scopeSolution(Builder $builder, $solution_id)
@@ -94,6 +92,16 @@ class Insurance extends Model
             ->where('id', '!=', $this->id)
             ->take(4)
             ->get();
+    }
+
+    public function created_by()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function updated_by()
+    {
+        return $this->belongsTo(User::class, 'updated_by_id');
     }
 
     public function solution()

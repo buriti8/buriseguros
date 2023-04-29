@@ -27,9 +27,10 @@ class VerificationController extends Controller
     /**
      * Where to redirect users after verification.
      *
-    * @return string
+     * @return string
      */
-    protected function redirectTo() {
+    protected function redirectTo()
+    {
         return route('app.overview');
     }
 

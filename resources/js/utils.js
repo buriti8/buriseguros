@@ -12,10 +12,6 @@ export function confirmInactive() {
     return confirmAlert("Confirmación", "¿Desea cambiar el estado?");
 }
 
-export function confirmExit() {
-    return confirmAlert("Confirmación", "¿Desea registrar salida del vehículo?");
-}
-
 export function confirmAlert(
     title,
     text,

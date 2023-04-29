@@ -24,9 +24,9 @@ class CreateNetworkRequest extends BasicModelRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:191',
+            'name' => 'required|string|max:255',
             'link' => 'required|url',
-            'icon' => 'required|string|max:191',
+            'icon' => 'required|string|max:255',
             'status' => 'nullable'
         ];
     }

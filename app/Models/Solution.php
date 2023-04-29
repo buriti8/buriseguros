@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use App\Traits\CustomAttributesTrait;
+use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Solution extends Model
+class Solution extends Model implements Auditable
 {
-    use CustomAttributesTrait;
-
-    const PERSONAL = 1;
-    const BUSINESS = 2;
+    use CustomAttributesTrait, SoftDeletes, CreatedUpdatedBy;
+    use \OwenIt\Auditing\Auditable;
 
     protected $table = 'solutions';
     protected $perPage = 20;
@@ -22,7 +22,6 @@ class Solution extends Model
      *
      * @var array
      */
-
     protected $fillable = [
         'name',
         'image',
@@ -39,7 +38,7 @@ class Solution extends Model
      */
     public function scopeStatus(Builder $builder)
     {
-        $builder->where('status', 1);
+        $builder->where('status', 1)->orderBy('name', 'ASC');
     }
 
     /**
@@ -64,6 +63,16 @@ class Solution extends Model
             }
         }
         return $builder->orderBy('name', 'ASC');
+    }
+
+    public function created_by()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function updated_by()
+    {
+        return $this->belongsTo(User::class, 'updated_by_id');
     }
 
     public function insurances()

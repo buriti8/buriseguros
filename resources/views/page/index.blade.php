@@ -56,7 +56,7 @@
             <div class="section-header">
                 <h2>Acerca de nosotros</h2>
                 <p>
-                    {{$contact->description ?? ''}}
+                    {{$information->description ?? ''}}
                 </p>
             </div>
 
@@ -209,7 +209,7 @@
                             <i class="fas fa-map-marker-alt flex-shrink-0"></i>
                             <div>
                                 <h4>Dirección:</h4>
-                                <p>{{$contact->address ?? ''}}</p>
+                                <p>{{$information->address ?? ''}}</p>
                             </div>
                         </div>
                         <!-- End Info Item -->
@@ -218,7 +218,7 @@
                             <i class="far fa-envelope flex-shrink-0"></i>
                             <div>
                                 <h4>Email:</h4>
-                                <p>{{$contact->email}}</p>
+                                <p>{{$information->email}}</p>
                             </div>
                         </div>
                         <!-- End Info Item -->
@@ -227,8 +227,8 @@
                             <i class="fas fa-phone-alt flex-shrink-0"></i>
                             <div>
                                 <h4>Teléfonos:</h4>
-                                <p>{{$contact->phone}}</p>
-                                <p>{{$contact->mobile}}</p>
+                                <p>{{$information->phone}}</p>
+                                <p>{{$information->mobile}}</p>
                             </div>
                         </div>
                         <!-- End Info Item -->

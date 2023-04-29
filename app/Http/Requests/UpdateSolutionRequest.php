@@ -24,7 +24,7 @@ class UpdateSolutionRequest extends BasicModelRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|required|string|max:191',
+            'name' => 'sometimes|required|string|max:255',
             'image' => 'sometimes|required|mimes:png',
             'description' => 'sometimes|required|string',
             'status' => 'sometimes|nullable'

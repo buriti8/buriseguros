@@ -30,6 +30,7 @@ class CreateInsuranceRequest extends BasicModelRequest
             'image' => 'required|mimes:png,jpg',
             'icon' => 'required|string|max:191',
             'description' => 'required|string',
+            'pre_content' => 'required|string',
             'content' => 'required|string',
             'status' => 'nullable'
         ];

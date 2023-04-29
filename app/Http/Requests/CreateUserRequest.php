@@ -25,12 +25,18 @@ class CreateUserRequest extends BasicModelRequest
      */
     public function rules()
     {
-
         return [
             'name' => 'required',
             'last_name' => 'required',
-            'username' => 'required|unique:users',
-            'email' => 'required|unique:users|email',
+            'username' => [
+                'required',
+                Rule::unique('users', 'username')
+            ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email'),
+            ],
             'password' => 'required|confirmed|min:6',
             'is_admin' => 'required',
             'role' => 'required_if:is_admin,0',
