@@ -2,13 +2,12 @@
 
 return [
     'modules' => [
-        'lists' => 'Listas Desplegables',
         'insurers' => 'Aseguradoras',
-        'networks' => 'Redes Sociales',
-        'solutions' => 'Soluciones',
-        'insurances' => 'Seguros',
-        'posts' => 'Blog Posts',
         'information' => 'Información de Contacto',
+        'lists' => 'Listas Desplegables',
+        'networks' => 'Redes Sociales',
+        'insurances' => 'Seguros',
+        'solutions' => 'Soluciones',
     ],
 
     'base_permissions' => [
