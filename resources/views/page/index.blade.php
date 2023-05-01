@@ -3,285 +3,203 @@
 @section('content_page')
 
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="hero carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
-    <div class="carousel-inner">
-        @foreach ($insurances as $item)
-        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-            <div class="container">
-                <div class="row justify-content-center gy-6">
-                    <div class="col-lg-5 col-md-8">
-                        <img src="{{ route('insurance.image', $item->id) }}" alt=""
-                            class="img-fluid img" />
-                    </div>
-
-                    <div class="col-lg-9 text-center">
-                        {{-- <h2>Welcome to HeroBiz</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                        </p> --}}
-                        <a href="{{ route('insurance.page', $item->slug) }}" class="btn-get-started scrollto">
-                            Saber más
-                        </a>
-                    </div>
-                </div>
+<section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container" data-aos="fade-in">
+        <div class="row">
+            <h1>{{ $information->name ?? ''}}</h1>
+            <div class="col-sm-12 col-lg-6">
+                <h2>{{ $information->description ?? ''}}</h2>
+            </div>
+            <div class="d-flex align-items-center">
+                <i class="fas fa-arrow-right get-started-icon"></i>
+                <a href="#pricing" class="btn-get-started scrollto">Cotiza</a>
             </div>
         </div>
-        @endforeach
-        <!-- End Carousel Item -->
-
-        <!-- End Carousel Item -->
     </div>
-
-    <a class="carousel-control-prev" href="#hero" role="button" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon fas fa-chevron-left" aria-hidden="true"></span>
-    </a>
-
-    <a class="carousel-control-next" href="#hero" role="button" data-bs-slide="next">
-        <span class="carousel-control-next-icon fas fa-chevron-right" aria-hidden="true"></span>
-    </a>
-
-    <ol class="carousel-indicators"></ol>
 </section>
 <!-- End Hero Section -->
 
 <main id="main">
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-        <div class="container" data-aos="fade-up">
-            <div class="section-header">
-                <h2>Acerca de nosotros</h2>
-                <p>
-                    {{$information->description ?? ''}}
-                </p>
-            </div>
-
-            <div class="row g-4 g-lg-5" data-aos="fade-up" data-aos-delay="200">
-                <div class="col-lg-5">
-                    <div class="about-img">
-                        @foreach ($solutions as $key => $solution)
-                        <img src="{{ route('solution.image', $solution->id) }}"
-                            class="img-fluid {{ $loop->first ? 'd-block' : 'd-none' }}"
-                            alt="{{ $solution->name ?? '' }}" id="features_{{$key}}" />
-                        @endforeach
-                    </div>
-                </div>
-
-                <div class="col-lg-7 pt-0">
-                    <h3 class="pt-0 pt-lg-5">
-                        Nuestras soluciones
-                    </h3>
-
-                    <!-- Tabs -->
-                    <ul class="nav nav-pills mb-3">
-                        @foreach ($solutions as $key => $solution)
-                        <li>
-                            <a class="nav-link {{ $loop->first ? 'active' : '' }} set_solution" data-bs-toggle="pill"
-                                href="#tab{{$key}}" data-solution="{{$key}}">
-                                {{$solution->name ?? ''}}
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                    <!-- End Tabs -->
-
-                    <!-- Tab Content -->
-                    <div class="tab-content">
-                        @foreach ($solutions as $key => $solution)
-                        <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="tab{{$key}}">
-                            <p class="fst-italic">
-                                {{$solution->description ?? ''}}
-                            </p>
-
-                            @foreach ($solution->insurance_types($key+1) as $type)
-                            <div class="d-flex align-items-center mt-4">
-                                <i class="fas fa-check"></i>
-                                <h4>
-                                    {{$type->name ?? ''}}
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+        <div class="container">
+            <div class="row">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        @foreach ($insurances as $insurance)
+                        <div class="swiper-slide" data-aos="fade-up">
+                            <div class="icon-box mb-0">
+                                <div class="icon">
+                                    <i class="{{ $insurance->icon ?? '' }}"></i>
+                                </div>
+                                <h4 class="title">
+                                    <a href="">{{ $insurance->name ?? '' }}</a>
                                 </h4>
                             </div>
-                            @endforeach
                         </div>
                         @endforeach
                     </div>
-                    <!-- End Tab Content -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+    </section>
+    <!-- End Services Section -->
+
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up">Cotiza</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-xl-4" data-aos="fade-up">
+                    <div id="cpc1"></div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-xl-4 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="100">
+                    <div id="sel-widget"></div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-xl-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
+                    <div id="sel-widget-soat"></div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End About Section -->
-
-    <!-- ======= Features Section ======= -->
-    @foreach ($solutions as $key => $solution)
-    <section id="features_{{$key}}" class="features {{ $loop->first ? 'd-block' : 'd-none' }}">
-        <div class="container" data-aos="fade-up">
-            <ul class="nav nav-tabs row gy-4 d-flex justify-content-center">
-                @foreach ($solution->insurance_types($key+1) as $keyType => $type)
-                <li class="nav-item col-6 col-md-4 col-lg-2">
-                    <a class="nav-link {{ $loop->first ? 'show active' : '' }}" data-bs-toggle="tab"
-                        data-bs-target="#tab-{{$keyType}}-{{$key}}">
-                        <i class="{{$type->icon}} color-primary"></i>
-                        <h4>{{$type->name ?? ''}}</h4>
-                    </a>
-                </li>
-                @endforeach
-            </ul>
-
-            <div class="tab-content">
-                @foreach ($solution->insurance_types($key+1) as $keyType => $type)
-                <div class="tab-pane {{ $loop->first ? 'show active' : '' }}" id="tab-{{$keyType}}-{{$key}}">
-                    <div class="row gy-4">
-                        <div class="col-lg-8 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-                            <h3>{{$type->name ?? ''}}</h3>
-                            <div>
-                                {!! $type->content ?? '' !!}
-                            </div>
-                            <div class="recent-blog-posts">
-                                <div class="post-box">
-                                    <a href="{{ route('insurance.page', $type->slug) }}"
-                                        class="readmore stretched-link">
-                                        <span>Saber más</span>
-                                        <i class="fas fa-long-arrow-alt-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 order-1 order-lg-2 text-center" data-aos="fade-up" data-aos-delay="200">
-                            <img src="{{ route('insurance.image', $type->id) }}" alt="{{$type->name ?? ''}}"
-                                class="img-fluid" />
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                <!-- End Tab Content 1 -->
-            </div>
-        </div>
-    </section>
-    @endforeach
-    <!-- End Features Section -->
+    <!-- End Pricing Section -->
 
     <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients">
-        <div class="container" data-aos="zoom-out">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2 data-aos="fade-up">Paga en línea</h2>
+                <p>
+                    Puedes realizar tus pagos en línea, dale clic en el logo de tu aseguradora.
+                </p>
+            </div>
+
             <div class="clients-slider swiper">
                 <div class="swiper-wrapper align-items-center">
                     @foreach ($insurers as $insurer)
                     <div class="swiper-slide">
                         <a href="{{ $insurer->link }}" target="_blank">
                             <img src="{{ route('insurer.image', $insurer->id) }}?{{rand(0, 1000)}}" class="img-fluid"
-                                alt="">
+                                alt="{{ $insurer->name }}">
                         </a>
                     </div>
                     @endforeach
                 </div>
+                <div class="mt-5 swiper-pagination"></div>
             </div>
         </div>
     </section>
     <!-- End Clients Section -->
 
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact pt-4">
         <div class="container">
-            <div class="section-header">
-                <h2>Contáctanos</h2>
+            <div class="section-title">
+                <h2 data-aos="fade-up">Contáctanos</h2>
             </div>
-        </div>
 
-        <div class="map">
-            <div style="width: 100%">
-                <iframe width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                    src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Buriseguros+(Buriseguros)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
-                    <a href="https://www.maps.ie/distance-area-calculator.html">area maps</a>
-                </iframe>
+            <div class="map">
+                <div style="width: 100%">
+                    <iframe width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                        data-aos="fade-up" data-aos-delay="200"
+                        src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Buriseguros+(Buriseguros)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                        <a href="https://www.maps.ie/distance-area-calculator.html">area maps</a>
+                    </iframe>
+                </div>
             </div>
-        </div>
-        <!-- End Google Maps -->
 
-        <div class="container">
-            <div class="row gy-5 gx-lg-5">
-                <div class="col-lg-4">
-                    <div class="info">
-                        <div class="info-item d-flex">
-                            <i class="fas fa-map-marker-alt flex-shrink-0"></i>
-                            <div>
-                                <h4>Dirección:</h4>
-                                <p>{{$information->address ?? ''}}</p>
-                            </div>
-                        </div>
-                        <!-- End Info Item -->
-
-                        <div class="info-item d-flex">
-                            <i class="far fa-envelope flex-shrink-0"></i>
-                            <div>
-                                <h4>Email:</h4>
-                                <p>{{$information->email}}</p>
-                            </div>
-                        </div>
-                        <!-- End Info Item -->
-
-                        <div class="info-item d-flex">
-                            <i class="fas fa-phone-alt flex-shrink-0"></i>
-                            <div>
-                                <h4>Teléfonos:</h4>
-                                <p>{{$information->phone}}</p>
-                                <p>{{$information->mobile}}</p>
-                            </div>
-                        </div>
-                        <!-- End Info Item -->
-
-                        <div class="info-item d-flex">
-                            <i class="far fa-clock flex-shrink-0"></i>
-                            <div>
-                                <h4>Horario:</h4>
-                                <p>Lunes - Viernes: 8:00 AM - 05:00 PM</p>
-                                <p>Sábado: 8:00 AM - 12:00 PM</p>
-                            </div>
-                        </div>
-                        <!-- End Info Item -->
+            <div class="row justify-content-center">
+                <div class="col-xl-4 mt-4" data-aos="fade-up">
+                    <div class="info-box">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Dirección</h3>
+                        <p>{{$information->address ?? ''}}<br>Medellín, Antioquia</p>
                     </div>
                 </div>
 
-                <div class="col-lg-8">
-                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre"
-                                    required />
-                            </div>
-                            <div class="col-md-6 form-group mt-3 mt-md-0">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Tu Email"
-                                    required />
-                            </div>
-                        </div>
-                        <div class="form-group mt-3">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto"
-                                required />
-                        </div>
-                        <div class="form-group mt-3">
-                            <textarea class="form-control" name="message" placeholder="Mensaje" required></textarea>
-                        </div>
-                        <div class="my-3">
-                            <div class="loading">Cargando</div>
-                            <div class="error-message"></div>
-                            <div class="sent-message">
-                                Your message has been sent. Thank you!
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit">Enviar Mensaje</button>
-                        </div>
-                    </form>
+                <div class="col-xl-4 mt-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="info-box">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>Teléfonos</h3>
+                        <p>{{$information->phone}}<br>{{$information->mobile}}</p>
+                    </div>
                 </div>
-                <!-- End Contact Form -->
+                <div class="col-xl-4 mt-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="info-box">
+                        <i class="far fa-clock"></i>
+                        <h3>Horarios</h3>
+                        <p>Lunes - Viernes: 8:00 AM - 05:00 PM<br>Sábado: 8:00 AM - 12:00 PM</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-    <!-- End Contact Section -->
+    </section><!-- End Contact Section -->
 </main>
 <!-- End #main -->
 
+@endsection
+
+@section('javascript')
+<script src="https://lab.suraenlinea.com/widgets/credito-protegido-cotizar/plan-credito-260-380/soat-cotizar.min.js">
+</script>
+<script src="https://lab.suraenlinea.com/widgets/v2/viajes/viajes.min.js"></script>
+<script src="https://lab.suraenlinea.com/widgets/v2/soat/soat.min.js"></script>
+
+<script>
+    function fn() {
+        const cpcCotizar = document.createElement('plan-credito-cotizar');
+        cpcCotizar.setAttribute('codigo-canal', '7771');
+        cpcCotizar.setAttribute('codigo-asesor', '80438');
+        cpcCotizar.setAttribute('utm-source', 'http://localhost:8081/buriseguros/public/');
+        cpcCotizar.setAttribute('utm-campaign', 'asesores-widget');
+        
+        const cpc1 = document.getElementById('cpc1');
+        cpc1.appendChild(cpcCotizar);
+        
+        const i = angular.bootstrap(cpc1, ['plan.credito.260.380']);
+    }
+
+    document.addEventListener('DOMContentLoaded', fn, true);
+
+    function initSuraWidget () {
+        SuraWidgetViajes.mount(
+        {
+            'codigoCanal': 'TraditionalChannel',
+            'codigoAsesor': '80438',
+            'codigoOficina': '1',
+            'tenant': 'sura',
+            'utm-source': 'http://localhost:8081/buriseguros/public/',
+            'utm-campaign': 'Widget asesor viajes',
+            'autocotizar': true,
+            'utm-term': 'http://localhost:8081/buriseguros/public/',
+            'utm-medium': 'asesores',
+        },
+        'sel.viajes.cotizar.390.430',
+        document.getElementById('sel-widget'));
+    }
+    
+    document.addEventListener('DOMContentLoaded', initSuraWidget, true);
+
+    function initSuraWidgetSoat() {
+        SuraWidgetSoat.mount(
+        {
+            'codigo-canal': '7771',
+            'codigo-asesor': '80438',
+            'tenant': 'sura',
+            'utm-source': 'http://localhost:8081/buriseguros/public/',
+            'utm-campaign': 'Widget asesor soat',
+        }, 
+        'sura.widget.soat.300.400',
+        document.getElementById('sel-widget-soat'));
+
+        const jaja = document.getElementsByClassName('jeYTrQ')[0];
+        jaja.nextElementSibling.style.marginTop = '0';
+    }
+    document.addEventListener('DOMContentLoaded', initSuraWidgetSoat, true);
+</script>
 @endsection

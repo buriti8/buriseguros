@@ -2,7 +2,6 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Models\Contact;
 use App\Models\Information;
 use App\Models\Network;
 use App\Models\Solution;

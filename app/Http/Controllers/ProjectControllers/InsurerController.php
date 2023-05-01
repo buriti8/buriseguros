@@ -170,10 +170,7 @@ class InsurerController extends Controller
     public function getImage(Insurer $insurer)
     {
         if ($insurer->image) {
-            $img = Image::make(storage_path("app/" . $insurer->image))->resize(80, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
+            $img = Image::make(storage_path("app/" . $insurer->image));
 
             return $img->response($img->extension);
         } else {

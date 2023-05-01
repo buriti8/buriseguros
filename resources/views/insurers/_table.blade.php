@@ -28,7 +28,7 @@
             <div class="container d-flex h-100">
                 <div class="row justify-content-center align-self-center">
                     <img alt="" @if ($insurer->image)
-                    src="{{ route('insurer.image', $insurer->id) }}?{{rand(0, 1000)}}"
+                    src="{{ route('insurer.image', $insurer->id) }}?{{rand(0, 1000)}}" width="50" height="50"
                     @else
                     src="{{ asset('img/logo.png') }}"
                     @endif>
