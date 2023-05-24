@@ -18,6 +18,7 @@ class CreateNetworksTable extends Migration
             $table->string('name')->nullable();
             $table->text('link')->nullable();
             $table->string('icon')->nullable();
+            $table->string('color')->nullable();
             $table->boolean('status')->default(1)->nullable();
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->unsignedBigInteger('updated_by_id')->nullable();
