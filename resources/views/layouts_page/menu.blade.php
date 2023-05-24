@@ -8,7 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{$information->name ?? ''}} @yield('title')</title>
-    <meta content="Somos una agencia de seguros en Medellín respaldada por SURA y otras compañías. Protegemos lo que más quieres y los que te quieren. Contáctanos para más información." name="description">
+    <meta
+        content="Somos una agencia de seguros en Medellín respaldada por SURA y otras compañías. Protegemos lo que más quieres y los que te quieren. Contáctanos para más información."
+        name="description">
     <meta content="" name="keywords">
 
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/icon.png')}}">
@@ -19,20 +21,23 @@
 <body>
     <!-- ======= Top Bar ======= -->
     <section id="topbar" class="d-flex align-items-center">
-        <div class="container d-flex justify-content-center justify-content-md-between">
-            <div class="contact-info d-flex align-items-center">
+        <div class="container d-flex justify-content-sm-center justify-content-sm-between">
+            <div class="contact-info d-flex align-items-center" data-aos="fade-right">
                 <div class="logo">
                     <a href="{{route('page.index')}}">
-                        <img src="{{ route('information.image', 1) }}?{{rand(0, 1000)}}" alt="Logo" class="img-fluid" width="75%">
+                        <img src="{{ route('information.image', 1) }}?{{rand(0, 1000)}}" alt="Logo" class="img-fluid"
+                            width="75%">
                     </a>
                 </div>
             </div>
 
-            <div class="d-none d-md-flex align-items-center social-links">
+            <div class="d-none d-sm-flex align-items-center social-links" data-aos="fade-left">
                 @foreach ($networks as $network)
-                <a href="{{ $network->link ?? ''  }}" target="_blank">
+                @if ($network->name !== 'WhatsApp')
+                <a href="{{ $network->link ?? ''  }}" class="{{ $network->color ?? '' }}" target="_blank">
                     <i class="{{ $network->icon ?? '' }}"></i>
                 </a>
+                @endif
                 @endforeach
             </div>
         </div>
@@ -125,7 +130,8 @@
 
             <div class="me-lg-auto text-center text-lg-start">
                 <div class="copyright">
-                    &copy; Copyright <strong><span>{{ $information->name ?? '' }}</span></strong>. Todos los derechos reservados
+                    &copy; Copyright <strong><span>{{ $information->name ?? '' }}</span></strong>. Todos los derechos
+                    reservados
                 </div>
                 <div class="credits">
                     Powered by <a href="https://bootstrapmade.com/">Manuel Buriticá🚀</a>
@@ -133,18 +139,28 @@
             </div>
             <div class="social-links text-center text-lg-right pt-3 pt-lg-0">
                 @foreach ($networks as $network)
-                <a href="{{ $network->link ?? ''  }}" target="_blank">
+                @if ($network->name !== 'WhatsApp')
+                <a href="{{ $network->link ?? ''  }}" class="{{ $network->color ?? '' }}" target="_blank">
                     <i class="{{ $network->icon ?? '' }}"></i>
                 </a>
+                @endif
                 @endforeach
             </div>
         </div>
     </footer>
     <!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    {{-- <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
         <i class="fas fa-long-arrow-alt-up"></i>
+    </a> --}}
+
+    @foreach ($networks as $network)
+    @if ($network->name === 'WhatsApp')
+    <a href="{{ $network->link ?? ''  }}" class="float {{ $network->color ?? '' }}" target="_blank">
+        <i class="{{ $network->icon ?? '' }} my-float"></i>
     </a>
+    @endif
+    @endforeach
 
     <div id="preloader"></div>
 
