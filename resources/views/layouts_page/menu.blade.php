@@ -73,6 +73,7 @@
                         </ul>
                     </li>
                     @endforeach
+                    <li><a class="nav-link scrollto" href="#clients">Paga en línea</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
                 </ul>
                 <i class="fas fa-bars mobile-nav-toggle"></i>

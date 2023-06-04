@@ -113,28 +113,113 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center">
-                <div class="col-xl-4 mt-4" data-aos="fade-up">
-                    <div class="info-box">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Dirección</h3>
-                        <p>{{$information->address ?? ''}}<br>Medellín, Antioquia</p>
+            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-sm-12 col-md-4">
+                    <div class="col-sm-12 mt-4" data-aos="fade-up">
+                        <div class="info-box">
+                            <i class="fas fa-user-tie"></i>
+                            <img src="{{asset('img/juan.png')}}" alt="Logo" class="img-fluid" width="30%"
+                                style="margin-left: 20px">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 mt-4" data-aos="fade-up">
+                        <div class="info-box">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>Dirección</h3>
+                            <p>{{$information->address ?? ''}}<br>Medellín, Antioquia</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 mt-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="info-box">
+                            <i class="fas fa-phone-alt"></i>
+                            <h3>Teléfonos</h3>
+                            <p>{{$information->mobile}}<br>{{$information->phone}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mt-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="info-box">
+                            <i class="far fa-clock"></i>
+                            <h3>Horarios</h3>
+                            <p>Lunes - Viernes: 8:00 AM - 05:00 PM<br>Sábado: 8:00 AM - 12:00 PM</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-xl-4 mt-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="info-box">
-                        <i class="fas fa-phone-alt"></i>
-                        <h3>Teléfonos</h3>
-                        <p>{{$information->phone}}<br>{{$information->mobile}}</p>
-                    </div>
-                </div>
-                <div class="col-xl-4 mt-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="info-box">
-                        <i class="far fa-clock"></i>
-                        <h3>Horarios</h3>
-                        <p>Lunes - Viernes: 8:00 AM - 05:00 PM<br>Sábado: 8:00 AM - 12:00 PM</p>
-                    </div>
+                <div class="col-sm-12 col-md-8 mt-4">
+                    <form action="#" method="post" role="form" id="contact-form" class="php-email-form"
+                        autocomplete="off">
+                        @csrf
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="text-center">
+                                    <h3>@lang('contact_forms.leave_information')</h3>
+                                    <p>@lang('contact_forms.leave_information_message')</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control form-control-sm" id="name" name="name"
+                                        placeholder="*@lang('contact_forms.name')" required>
+                                    <label for="name">*@lang('contact_forms.name')</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control form-control-sm" id="phone" name="phone"
+                                        placeholder="*@lang('contact_forms.phone')" required>
+                                    <label for="phone">*@lang('contact_forms.phone')</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control form-control-sm" id="email" name="email"
+                                        placeholder="@lang('contact_forms.email')" pattern="^.+@.+\.[a-zA-Z]{2,63}$">
+                                    <label for="email">@lang('contact_forms.email')</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 mt-3">
+                                <div class="form-floating">
+                                    <select class="form-select" id="insurance_id" name="insurance_id"
+                                        aria-label="*@lang('contact_forms.select_insurance')" required>
+                                        <option value="">@lang('contact_forms.select_insurance')</option>
+                                        @foreach ($insurances as $insurance)
+                                        <option value="{{ $insurance->id }}">{{ $insurance->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="insurance_id">*@lang('contact_forms.insurance_id')</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 mt-3">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="*@lang('contact_forms.message')"
+                                        id="message" name="message" rows="6" style="height: 100%" required></textarea>
+                                    <label for="message">*@lang('contact_forms.message')</label>
+                                </div>
+                                <small><strong>(*) </strong>@lang('base_lang.required')</small>
+                            </div>
+                            <div class="col-sm-12 mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="accept" required>
+                                    <label class="form-check-label" for="accept">
+                                        &nbsp;@lang('contact_forms.accept')
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 my-3">
+                                <div class="error-message"></div>
+                                <div class="sent-message"></div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="text-center" id="div-contact-form">
+                                    <button type="submit">
+                                        @lang('contact_forms.send')
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

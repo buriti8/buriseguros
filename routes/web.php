@@ -89,6 +89,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 });
 
 Route::get('/', 'PageController@index')->name('page.index');
+Route::post('/contact', 'PageController@store')->name('page.store');
 
 Route::get('/pagos', 'ProjectControllers\InsurerController@page')->name('insurer.page');
 Route::get("/{insurance:slug}", "ProjectControllers\InsuranceController@page")->name('insurance.page');

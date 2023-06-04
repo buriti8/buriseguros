@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactForm;
 use App\Models\Information;
 use App\Models\Insurance;
 use App\Models\Insurer;
 use App\Models\Solution;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller
 {
@@ -48,7 +51,30 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $contact_form = new ContactForm($request->all());
+
+            if ($contact_form->save()) {
+                $data = [
+                    'success' => true,
+                    'message' => __('contact_forms.success'),
+                ];
+
+                DB::commit();
+            }
+        } catch (\Exception $e) {
+            $data = [
+                'success' => false,
+                'message' => __('contact_forms.error'),
+            ];
+
+            DB::rollBack();
+            Log::error($e->getMessage());
+        }
+
+        return response()->json($data);
     }
 
     /**

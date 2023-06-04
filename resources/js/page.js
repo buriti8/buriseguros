@@ -1,6 +1,7 @@
 import Swiper, { Navigation, Pagination } from 'swiper';
 import Aos from 'aos';
 import GLightbox from "glightbox";
+import { confirmAlert } from './utils';
 
 require('isotope-layout');
 
@@ -323,4 +324,49 @@ document.addEventListener('DOMContentLoaded', () => {
             mirror: false
         })
     });
+});
+
+function setMessage(field, message) {
+    const messageDiv = document.querySelector(field);
+
+    messageDiv.textContent = '';
+    messageDiv.textContent = message;
+    messageDiv.style.display = 'block';
+
+    const submitBtn = document.getElementById('div-contact-form');
+    submitBtn.style.display = 'none';
+
+    setTimeout(() => {
+        messageDiv.style.display = 'none';
+        submitBtn.style.display = 'block';
+    }, 5000);
+}
+
+/* Custom functions */
+document.getElementById('contact-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+    fetch(`${BASE_URL}/contact`, {
+        method: 'POST',
+        body: formData
+    }).then((response) => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Error en la solicitud');
+    }).then((data) => {
+        if (data.success) {
+            setMessage('.sent-message', data.message);
+            this.reset();
+        } else {
+            setMessage('.error-message', data.message);
+        }
+    }).catch((error) => {
+        setMessage('.error-message', error);
+    });
+
+    $(this).find("button[type='submit']").prop('disabled', false);
 });
