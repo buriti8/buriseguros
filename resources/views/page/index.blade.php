@@ -46,7 +46,7 @@
     <!-- End Services Section -->
 
     <!-- ======= Pricing Section ======= -->
-    <section id="pricing" class="pricing">
+    {{-- <section id="pricing" class="pricing">
         <div class="container">
             <div class="section-title">
                 <h2 data-aos="fade-up">Cotiza</h2>
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- End Pricing Section -->
 
     <!-- ======= Clients Section ======= -->
@@ -229,7 +229,7 @@
 
 @endsection
 
-@section('javascript')
+{{-- @section('javascript')
 <script src="https://lab.suraenlinea.com/widgets/credito-protegido-cotizar/plan-credito-260-380/soat-cotizar.min.js">
 </script>
 <script src="https://lab.suraenlinea.com/widgets/v2/viajes/viajes.min.js"></script>
@@ -287,4 +287,4 @@
     }
     document.addEventListener('DOMContentLoaded', initSuraWidgetSoat, true);
 </script>
-@endsection
+@endsection --}}
