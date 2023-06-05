@@ -34,6 +34,6 @@ class SendContactForm implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to('buriti8@gmail.com')->send(new MailContactForm($this->contact_form));
+        Mail::to('juan.buritica@asesorsura.com')->send(new MailContactForm($this->contact_form));
     }
 }
