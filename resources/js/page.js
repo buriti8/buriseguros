@@ -1,4 +1,4 @@
-import Swiper, { Navigation, Pagination } from 'swiper';
+import Swiper, { Navigation, Pagination, Autoplay } from 'swiper';
 import Aos from 'aos';
 import GLightbox from "glightbox";
 import { confirmAlert } from './utils';
@@ -8,7 +8,7 @@ require('isotope-layout');
 document.addEventListener('DOMContentLoaded', () => {
     "use strict";
 
-    Swiper.use([Navigation, Pagination]);
+    Swiper.use([Navigation, Pagination, Autoplay]);
 
     /**
      * Easy selector helper function
